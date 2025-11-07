@@ -1,70 +1,22 @@
-// Cargar canciones de Spotify usando credenciales
-const CLIENT_ID = 'e1b1fc73e4eb4063bfd311e3c8e48de1';
-const CLIENT_SECRET = '5e65ba3e8e40410785dbe48949b978b8';
-const PLAYLIST_ID = '4YDbETDreYWPudra7QaPfk';
+// Cargar canciones de Spotify usando API backend en Vercel
 const TRACKS_CONTAINER = document.getElementById('spotify-tracks-list');
 
-let accessToken = null;
+// En Neocities, cambiar esta URL por tu URL de Vercel
+// Ejemplo: https://boda-carmen-marcos.vercel.app/api/spotify
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000/api/spotify'  // Para local
+    : 'https://boda-carmen-marcos.vercel.app/api/spotify';  // Para producción
 
-// Paso 1: Obtener el token de acceso
-async function getAccessToken() {
-    try {
-        const auth = btoa(`${CLIENT_ID}:${CLIENT_SECRET}`);
-        
-        const response = await fetch('https://accounts.spotify.com/api/token', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Basic ${auth}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'grant_type=client_credentials'
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            accessToken = data.access_token;
-            console.log('Token obtenido correctamente');
-            return true;
-        } else {
-            console.error('Error obteniendo token');
-            return false;
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        return false;
-    }
-}
-
-// Paso 2: Cargar la información de la playlist
+// Cargar la información de la playlist desde el servidor backend
 async function loadPlaylist() {
-    if (!accessToken) {
-        console.log('No hay token, obteniendo...');
-        const success = await getAccessToken();
-        if (!success) {
-            showPlaceholder();
-            return;
-        }
-    }
-
     try {
-        const response = await fetch(
-            `https://api.spotify.com/v1/playlists/${PLAYLIST_ID}`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            }
-        );
-
+        const response = await fetch(API_URL);
+        
         if (response.ok) {
             const data = await response.json();
             displayPlaylist(data);
-        } else if (response.status === 401) {
-            // Token expirado, obtener uno nuevo
-            accessToken = null;
-            await loadPlaylist();
         } else {
-            console.log('Error response:', response.status);
+            console.error('Error:', response.status);
             showPlaceholder();
         }
     } catch (error) {
