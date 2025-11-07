@@ -988,6 +988,20 @@ html {
         margin-left: 0;
     }
 
+    .gallery-section {
+        padding: 0.5rem 0;
+    }
+
+    .carousel-wrapper {
+        padding-bottom: 50% !important;
+    }
+
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
     .nav-menu {
         flex-wrap: wrap;
         justify-content: center;
@@ -1032,6 +1046,19 @@ html {
     #spotify-tracks-list {
         max-height: 300px !important;
         width: 100%;
+    }
+
+    .carousel-wrapper {
+        padding-bottom: 60% !important;
+    }
+
+    .music-section .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .music-content {
+        gap: 1rem;
     }
 
     .google-form-wrapper {
