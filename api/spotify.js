@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
-  const CLIENT_ID = 'e1b1fc73e4eb4063bfd311e3c8e48de1';
-  const CLIENT_SECRET = '5e65ba3e8e40410785dbe48949b978b8';
+  const CLIENT_ID = 'f3fe578f27a8447baa0554995c154c0b';
+  const CLIENT_SECRET = '92e468757fad44339918f289131d582a';
   const PLAYLIST_ID = '4YDbETDreYWPudra7QaPfk';
 
   // Permitir CORS

@@ -36,32 +36,31 @@ function displayPlaylist(playlist) {
     const items = playlist.tracks?.items || [];
 
     let html = `
+        <!-- Encabezado de la playlist fijo en el scroll -->
+        <div style="
+            background: linear-gradient(135deg, #8B4744 0%, #A76863 100%);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        ">
+            ${image ? `<img src="${image}" alt="${name}" style="
+                width: 150px;
+                height: 150px;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            ">` : ''}
+            <h3 style="margin: 1rem 0 0.5rem 0; font-size: 1.8rem;">${name}</h3>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">${totalTracks} ${totalTracks === 1 ? 'canción' : 'canciones'}</p>
+        </div>
+
+        <!-- Canciones -->
         <div style="
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         ">
-            <!-- Encabezado de la playlist -->
-            <div style="
-                background: linear-gradient(135deg, #8B4744 0%, #A76863 100%);
-                padding: 2rem;
-                text-align: center;
-                color: white;
-            ">
-                ${image ? `<img src="${image}" alt="${name}" style="
-                    width: 150px;
-                    height: 150px;
-                    border-radius: 8px;
-                    margin-bottom: 1rem;
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-                ">` : ''}
-                <h3 style="margin: 1rem 0 0.5rem 0; font-size: 1.8rem;">${name}</h3>
-                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">${totalTracks} ${totalTracks === 1 ? 'canción' : 'canciones'}</p>
-            </div>
-
-            <!-- Canciones -->
-            <div style="max-height: 400px; overflow-y: auto;">
     `;
 
     if (!items || items.length === 0) {
@@ -106,7 +105,6 @@ function displayPlaylist(playlist) {
     }
 
     html += `
-            </div>
         </div>
     `;
 
