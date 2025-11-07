@@ -629,6 +629,11 @@ html {
 /* Galería */
 .gallery-section {
     background: var(--white);
+    padding: 1rem 0;
+}
+
+.gallery-section .container {
+    padding: 0 5px;
 }
 
 .gallery-subtitle {
@@ -639,8 +644,8 @@ html {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.8rem;
     max-width: 100%;
 }
 
