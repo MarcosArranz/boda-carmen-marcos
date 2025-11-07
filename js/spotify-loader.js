@@ -2,10 +2,10 @@
 const TRACKS_CONTAINER = document.getElementById('spotify-tracks-list');
 
 // En Neocities, cambiar esta URL por tu URL de Vercel
-// Ejemplo: https://boda-Karmen-marcos.vercel.app/api/spotify
+// Ejemplo: https://boda-carmen-marcos.vercel.app/api/spotify
 const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000/api/spotify'  // Para local
-    : 'https://boda-Karmen-marcos.vercel.app/api/spotify';  // Para producción
+    : 'https://boda-carmen-marcos.vercel.app/api/spotify';  // Para producción
 
 // Cargar la información de la playlist desde el servidor backend
 async function loadPlaylist() {
