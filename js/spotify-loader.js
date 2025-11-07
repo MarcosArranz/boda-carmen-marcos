@@ -10,7 +10,9 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
 // Cargar la información de la playlist desde el servidor backend
 async function loadPlaylist() {
     try {
-        const response = await fetch(API_URL);
+        // Añadir timestamp para evitar caché
+        const timestamp = new Date().getTime();
+        const response = await fetch(`${API_URL}?t=${timestamp}`);
         
         if (response.ok) {
             const data = await response.json();
