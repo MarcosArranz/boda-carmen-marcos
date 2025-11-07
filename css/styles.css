@@ -899,6 +899,18 @@ html {
 
     .music-info {
         padding: 1.5rem;
+        width: 100%;
+    }
+
+    .spotify-embed {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    #spotify-tracks-list {
+        max-height: 300px !important;
+        width: 100%;
     }
 
     .google-form-wrapper {
