@@ -55,7 +55,7 @@ function displayPlaylist(playlist) {
                     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
                 ">` : ''}
                 <h3 style="margin: 1rem 0 0.5rem 0; font-size: 1.8rem;">${name}</h3>
-                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">${totalTracks} canción${totalTracks !== 1 ? 's' : ''}</p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">${totalTracks} ${totalTracks === 1 ? 'canción' : 'canciones'}</p>
             </div>
 
             <!-- Canciones -->
