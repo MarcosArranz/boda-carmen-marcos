@@ -614,8 +614,9 @@ html {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
+    max-width: 100%;
 }
 
 .gallery-item {
@@ -625,6 +626,7 @@ html {
     aspect-ratio: 1;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
 }
 
 .gallery-item img {
