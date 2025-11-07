@@ -29,6 +29,8 @@ html {
     overflow-x: hidden;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -53,12 +55,15 @@ html {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: bold;
     background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    margin-left: 5rem;
 }
 
 .nav-menu {
@@ -779,6 +784,11 @@ html {
         padding: 0 15px;
     }
 
+    .logo {
+        font-size: 1.8rem;
+        margin-left: 1rem;
+    }
+
     .nav-menu {
         gap: 1rem;
         font-size: 0.9rem;
@@ -867,6 +877,11 @@ html {
     .navbar .container {
         flex-direction: column;
         gap: 1rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        margin-left: 0;
     }
 
     .nav-menu {
