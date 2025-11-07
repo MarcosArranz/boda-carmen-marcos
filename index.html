@@ -30,48 +30,25 @@
         </div>
     </section>
 
-    <!-- Galería de Fotos -->
+    <!-- Galería de Fotos - Carrusel -->
     <section id="gallery" class="section gallery-section">
         <div class="container">
-            <!--<h2 class="section-title">Te invitamos a </h2>
-            <p class="gallery-subtitle">Se vienen cositas</p>-->
-                        <div class="gallery-grid" id="galleryGrid">
-                <!-- Fotos del evento -->
-                <div class="gallery-item">
-                    <img src="images/1.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/2.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/3.jpg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/5.jpg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/6.jpg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/7.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/8.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/9.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/10.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/11.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/12.jpeg" alt="Foto del evento">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/13.jpeg" alt="Foto del evento">
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <img class="carousel-image" src="images/1.jpeg" alt="Foto del evento">
+                    <div class="carousel-controls">
+                        <button class="carousel-button" onclick="prevSlide()" title="Foto anterior">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="carousel-button" onclick="nextSlide()" title="Foto siguiente">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="slide-counter">1 / 13</div>
                 </div>
             </div>
         </div>
@@ -481,5 +458,6 @@
 
     <script src="js/countdown.js"></script>
     <script src="js/spotify-loader.js"></script>
+    <script src="js/carousel.js"></script>
 </body>
 </html>
