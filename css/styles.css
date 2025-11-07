@@ -31,6 +31,24 @@ html {
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 
+/* Iconos SVG */
+.icon {
+    width: 3rem;
+    height: 3rem;
+    display: inline-block;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    color: var(--primary-color);
+}
+
+.icon-small {
+    width: 2rem;
+    height: 2rem;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -102,6 +120,7 @@ html {
     font-size: 4rem;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
+    font-family: 'Playfair Display', serif;
 }
 
 .hero-subtitle {
@@ -131,6 +150,7 @@ html {
     font-size: 2.5rem;
     margin-bottom: 3rem;
     color: var(--secondary-color);
+    font-family: 'Playfair Display', serif;
 }
 
 /* Información del Evento */
@@ -619,7 +639,7 @@ html {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     max-width: 100%;
 }
