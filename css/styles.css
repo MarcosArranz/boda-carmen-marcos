@@ -19,11 +19,14 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    width: 100%;
     overflow-x: hidden;
 }
 
 html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .container {
@@ -764,6 +767,16 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
+    body, html {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
     .nav-menu {
         gap: 1rem;
         font-size: 0.9rem;
