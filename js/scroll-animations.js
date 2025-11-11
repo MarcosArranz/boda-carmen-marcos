@@ -1,9 +1,12 @@
 // Script para animar elementos cuando aparecen en viewport
 document.addEventListener('DOMContentLoaded', () => {
+    // Detectar si es dispositivo móvil
+    const isMobile = window.innerWidth <= 768;
+
     // Crear observer para detectar cuando los elementos entran en viewport
     const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        threshold: isMobile ? 0.2 : 0.1,
+        rootMargin: isMobile ? '0px 0px -50px 0px' : '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -26,6 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
         section.classList.add('scroll-reveal');
     });
+
+    // En móvil, mostrar secciones más rápido
+    if (isMobile) {
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            el.style.animationDuration = '0.6s';
+        });
+    }
 });
 
 // Animar carrusel cuando cambia de foto
@@ -52,3 +62,36 @@ window.prevSlide = function() {
     originalPrevSlide();
     animateCarouselChange();
 };
+
+// Mejorar rendimiento en móvil deshabilitando algunas animaciones
+if (window.innerWidth <= 480) {
+    // Reducir animaciones en teléfonos pequeños
+    const style = document.createElement('style');
+    style.textContent = `
+        @media (max-width: 480px) {
+            .info-card, .hotel-card, .countdown-item, .timeline-item {
+                animation-duration: 0.5s !important;
+            }
+            
+            .hero-title {
+                animation-duration: 0.8s !important;
+            }
+            
+            /* Deshabilitar algunas animaciones hover en móvil */
+            @media (hover: none) {
+                .nav-menu a:hover::after {
+                    width: 0;
+                }
+                
+                .info-icon {
+                    transition: none;
+                }
+                
+                .info-card:hover {
+                    transform: none;
+                }
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}

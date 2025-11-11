@@ -28,11 +28,16 @@ function showSlide(n) {
     }
     
     if (carousel) {
-        carousel.src = slides[currentSlide];
-        carousel.style.opacity = '0';
+        // Aplicar clase de salida
+        carousel.classList.remove('fade-in');
+        carousel.classList.add('fade-out');
+        
+        // Cambiar imagen después de 250ms (mitad de la animación de 0.5s)
         setTimeout(() => {
-            carousel.style.opacity = '1';
-        }, 50);
+            carousel.src = slides[currentSlide];
+            carousel.classList.remove('fade-out');
+            carousel.classList.add('fade-in');
+        }, 250);
     }
     
     if (slideCounter) {
