@@ -16,6 +16,14 @@ const slides = [
     'images/13.jpeg'
 ];
 
+// Precargar todas las imágenes
+function preloadImages() {
+    slides.forEach((imageSrc) => {
+        const img = new Image();
+        img.src = imageSrc;
+    });
+}
+
 function showSlide(n) {
     // Evitar múltiples animaciones al mismo tiempo
     if (isAnimating) return;
@@ -66,11 +74,22 @@ function prevSlide() {
 
 // Inicializar carrusel cuando cargue el DOM
 document.addEventListener('DOMContentLoaded', () => {
-    showSlide(0);
+    // Precargar todas las imágenes primero
+    preloadImages();
+    
+    // Esperar un poco para asegurar que la primera imagen se cargue
+    setTimeout(() => {
+        showSlide(0);
+    }, 100);
     
     // Soporte para teclas de flecha
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') prevSlide();
         if (e.key === 'ArrowRight') nextSlide();
     });
+});
+
+// También precargar cuando la ventana carga completamente
+window.addEventListener('load', () => {
+    preloadImages();
 });
