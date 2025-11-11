@@ -1,5 +1,6 @@
 // Carrusel de fotos
 let currentSlide = 0;
+let isAnimating = false;
 const slides = [
     'images/6.jpg',
     'images/5.jpg',
@@ -16,6 +17,10 @@ const slides = [
 ];
 
 function showSlide(n) {
+    // Evitar múltiples animaciones al mismo tiempo
+    if (isAnimating) return;
+    isAnimating = true;
+    
     const carousel = document.querySelector('.carousel-image');
     const slideCounter = document.querySelector('.slide-counter');
     
@@ -32,12 +37,18 @@ function showSlide(n) {
         carousel.classList.remove('fade-in');
         carousel.classList.add('fade-out');
         
-        // Cambiar imagen después de 250ms (mitad de la animación de 0.5s)
+        // Cambiar imagen en el medio exacto de la animación
+        const changeImageDelay = window.innerWidth <= 768 ? 180 : 200;
         setTimeout(() => {
             carousel.src = slides[currentSlide];
             carousel.classList.remove('fade-out');
             carousel.classList.add('fade-in');
-        }, 250);
+        }, changeImageDelay);
+        
+        // Permitir siguiente animación después de que termine
+        setTimeout(() => {
+            isAnimating = false;
+        }, 500);
     }
     
     if (slideCounter) {
