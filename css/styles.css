@@ -82,6 +82,11 @@ html {
     font-family: 'Playfair Display', serif;
     letter-spacing: 1px;
     margin-left: 5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    animation: subtleRotate 0.6s ease;
 }
 
 .nav-menu {
@@ -95,10 +100,26 @@ html {
     color: var(--text-color);
     font-weight: 500;
     transition: color 0.3s;
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
 }
 
 .nav-menu a:hover {
     color: var(--primary-color);
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
 }
 
 /* Hero Section */
@@ -119,14 +140,25 @@ html {
 .hero-title {
     font-size: 4rem;
     margin-bottom: 1rem;
-    animation: fadeInUp 1s ease;
+    animation: heroTitleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
     font-family: 'Playfair Display', serif;
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     opacity: 0.9;
-    animation: fadeInUp 1s ease 0.2s backwards;
+    animation: fadeInUp 1s ease 0.3s backwards;
+}
+
+@keyframes heroTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes fadeInUp {
@@ -140,6 +172,109 @@ html {
     }
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes shine {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+    }
+    50% {
+        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        box-shadow: inset 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+@keyframes subtleRotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(2deg);
+    }
+    75% {
+        transform: rotate(-2deg);
+    }
+}
+
+/* Animación de aparición al scroll */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.scroll-reveal.visible {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
 /* Secciones */
 .section {
     padding: 5rem 0;
@@ -151,6 +286,7 @@ html {
     margin-bottom: 3rem;
     color: var(--secondary-color);
     font-family: 'Playfair Display', serif;
+    animation: fadeInUp 0.8s ease;
 }
 
 /* Información del Evento */
@@ -172,6 +308,19 @@ html {
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.info-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.info-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.info-card:nth-child(3) {
+    animation-delay: 0.3s;
 }
 
 .info-card:hover {
@@ -182,6 +331,11 @@ html {
 .info-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover .info-icon {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .info-card h3 {
@@ -309,7 +463,18 @@ html {
     display: flex;
     margin-bottom: 3rem;
     position: relative;
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
 }
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(6) { animation-delay: 0.6s; }
+.timeline-item:nth-child(7) { animation-delay: 0.7s; }
+.timeline-item:nth-child(8) { animation-delay: 0.8s; }
 
 .timeline-item:nth-child(odd) {
     flex-direction: row;
@@ -385,6 +550,17 @@ html {
     min-width: 150px;
     text-align: center;
     backdrop-filter: blur(10px);
+    animation: scaleIn 0.6s ease forwards;
+    opacity: 0;
+}
+
+.countdown-item:nth-child(1) { animation-delay: 0.1s; }
+.countdown-item:nth-child(2) { animation-delay: 0.2s; }
+.countdown-item:nth-child(3) { animation-delay: 0.3s; }
+.countdown-item:nth-child(4) { animation-delay: 0.4s; }
+
+.countdown-item:hover {
+    transform: scale(1.05);
 }
 
 .countdown-value {
@@ -425,7 +601,16 @@ html {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    animation: scaleIn 0.6s ease forwards;
+    opacity: 0;
 }
+
+.hotel-card:nth-child(1) { animation-delay: 0.1s; }
+.hotel-card:nth-child(2) { animation-delay: 0.2s; }
+.hotel-card:nth-child(3) { animation-delay: 0.3s; }
+.hotel-card:nth-child(4) { animation-delay: 0.4s; }
+.hotel-card:nth-child(5) { animation-delay: 0.5s; }
+.hotel-card:nth-child(6) { animation-delay: 0.6s; }
 
 .hotel-card:hover {
     transform: translateY(-5px);
@@ -436,6 +621,11 @@ html {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.hotel-card:hover .hotel-icon {
+    transform: scale(1.2) rotate(5deg);
 }
 
 .hotel-card h3 {
@@ -484,11 +674,29 @@ html {
     color: var(--white);
     text-decoration: none;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.hotel-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.4s;
 }
 
 .hotel-link:hover {
     background: #6d3633;
+    transform: translateY(-2px);
+}
+
+.hotel-link:hover::before {
+    left: 100%;
 }
 
 .accommodation-note {
@@ -533,6 +741,7 @@ html {
     text-align: center;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    animation: float 3s ease-in-out infinite;
 }
 
 .music-info h3 {
@@ -586,12 +795,33 @@ html {
     text-align: center;
     border-radius: 25px;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
     margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.spotify-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
 }
 
 .spotify-btn:hover {
     background: #1ed760;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.5);
+    animation: shimmer 0.6s ease;
+}
+
+.spotify-btn:hover::before {
+    left: 100%;
 }
 
 .music-note {
@@ -652,7 +882,23 @@ html {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease, filter 0.8s ease;
+    filter: brightness(1);
+}
+
+.carousel-image.fade-in {
+    animation: carouselFadeIn 0.8s ease;
+}
+
+@keyframes carouselFadeIn {
+    from {
+        opacity: 0;
+        filter: brightness(0.8);
+    }
+    to {
+        opacity: 1;
+        filter: brightness(1);
+    }
 }
 
 .carousel-controls {
