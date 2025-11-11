@@ -24,6 +24,29 @@ function preloadImages() {
     });
 }
 
+// Precargar solo las primeras imágenes de forma inmediata
+function preloadInitialImages() {
+    // Precargar las primeras 5 imágenes
+    slides.slice(0, 5).forEach((imageSrc) => {
+        const img = new Image();
+        img.src = imageSrc;
+    });
+}
+
+// Precargar el resto de imágenes de forma diferida
+function preloadRemainingImages() {
+    // Precargar las imágenes restantes después de 2 segundos
+    setTimeout(() => {
+        slides.slice(5).forEach((imageSrc, index) => {
+            // Espaciar la carga de cada imagen 500ms
+            setTimeout(() => {
+                const img = new Image();
+                img.src = imageSrc;
+            }, index * 500);
+        });
+    }, 2000);
+}
+
 function showSlide(n) {
     // Evitar múltiples animaciones al mismo tiempo
     if (isAnimating) return;
@@ -74,13 +97,16 @@ function prevSlide() {
 
 // Inicializar carrusel cuando cargue el DOM
 document.addEventListener('DOMContentLoaded', () => {
-    // Precargar todas las imágenes primero
-    preloadImages();
+    // Precargar solo las primeras 5 imágenes de inmediato
+    preloadInitialImages();
     
     // Esperar un poco para asegurar que la primera imagen se cargue
     setTimeout(() => {
         showSlide(0);
     }, 100);
+    
+    // Precargar el resto de imágenes de forma diferida
+    preloadRemainingImages();
     
     // Soporte para teclas de flecha
     document.addEventListener('keydown', (e) => {
@@ -91,5 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // También precargar cuando la ventana carga completamente
 window.addEventListener('load', () => {
+    // En caso de que no se haya precargado todo, hacerlo ahora
     preloadImages();
 });
