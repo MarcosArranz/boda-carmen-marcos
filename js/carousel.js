@@ -137,6 +137,15 @@ function handleFullscreenKeydown(e) {
     if (e.key === 'Escape') closeFullscreen();
 }
 
+// Función para volver al principio de la página
+function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
 // Inicializar carrusel cuando cargue el DOM
 document.addEventListener('DOMContentLoaded', () => {
     // Precargar solo las primeras 5 imágenes de inmediato

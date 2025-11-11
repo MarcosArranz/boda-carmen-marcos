@@ -83,10 +83,14 @@ html {
     letter-spacing: 1px;
     margin-left: 5rem;
     transition: transform 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
 }
 
 .logo:hover {
     animation: subtleRotate 0.6s ease;
+    text-decoration: none;
 }
 
 .nav-menu {
