@@ -165,6 +165,108 @@ html {
     }
 }
 
+/* Efectos especiales para iconos del timeline */
+@keyframes moonGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(139, 71, 68, 0.5));
+        transform: scale(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 15px rgba(139, 71, 68, 0.8));
+        transform: scale(1.05);
+    }
+}
+
+@keyframes microphoneVibrate {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+}
+
+@keyframes guitarPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 0 rgba(29, 185, 84, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(29, 185, 84, 0.6));
+    }
+}
+
+@keyframes musicalNote {
+    0% {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+        color: #8B4744;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) translateX(15px);
+        color: #8B4744;
+    }
+}
+
+@keyframes sunGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(255, 193, 7, 0.6));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.9));
+    }
+}
+
+@keyframes wandSparkle {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(10px, -10px) scale(1);
+    }
+}
+
+@keyframes wandShimmer {
+    0%, 100% {
+        transform: rotate(0deg) scaleX(1);
+        filter: drop-shadow(0 0 4px rgba(139, 71, 68, 0.4));
+    }
+    25% {
+        transform: rotate(-0.8deg) scaleX(0.995);
+        filter: drop-shadow(0 0 5px rgba(139, 71, 68, 0.5));
+    }
+    50% {
+        transform: rotate(0.8deg) scaleX(1);
+        filter: drop-shadow(0 0 7px rgba(139, 71, 68, 0.7));
+    }
+    75% {
+        transform: rotate(-0.5deg) scaleX(0.997);
+        filter: drop-shadow(0 0 5px rgba(139, 71, 68, 0.5));
+    }
+}
+
+@keyframes foodSmoke {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+    }
+    50% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px) scale(1.5);
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -517,6 +619,49 @@ html {
     font-size: 2rem;
     margin-bottom: 0.5rem;
     color: var(--primary-color);
+}
+
+/* Efectos especiales para iconos específicos */
+.timeline-icon.moon-icon {
+    animation: moonGlow 2.5s ease-in-out infinite;
+}
+
+.timeline-icon.microphone-icon {
+    animation: microphoneVibrate 0.3s ease-in-out infinite;
+}
+
+.timeline-icon.guitar-icon {
+    animation: guitarPulse 1.5s ease-in-out infinite;
+}
+
+.timeline-icon.guitar-icon::before {
+    content: '♪';
+    position: absolute;
+    font-size: 1.2rem;
+    color: #8B4744;
+    animation: musicalNote 1s ease-out infinite;
+    margin-left: 25px;
+}
+
+.timeline-icon.guitar-icon::after {
+    content: '♫';
+    position: absolute;
+    font-size: 1.3rem;
+    color: #8B4744;
+    animation: musicalNote 1.3s ease-out infinite 0.3s;
+    margin-left: 45px;
+}
+
+.timeline-icon.sun-icon {
+    animation: sunGlow 2s ease-in-out infinite;
+}
+
+.timeline-icon.wand-icon {
+    animation: wandShimmer 5s ease-in-out infinite;
+}
+
+.timeline-icon.food-icon {
+    position: relative;
 }
 
 .timeline-content h3 {
