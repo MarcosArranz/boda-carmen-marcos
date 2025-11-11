@@ -37,13 +37,13 @@ function showSlide(n) {
         carousel.classList.remove('fade-in');
         carousel.classList.add('fade-out');
         
-        // Cambiar imagen en el medio exacto de la animación
-        const changeImageDelay = window.innerWidth <= 768 ? 180 : 200;
+        // Cambiar imagen casi al inicio del blur (cuando está muy desenfocada)
+        // Esto hace que el cambio sea imperceptible
         setTimeout(() => {
             carousel.src = slides[currentSlide];
             carousel.classList.remove('fade-out');
             carousel.classList.add('fade-in');
-        }, changeImageDelay);
+        }, 50);
         
         // Permitir siguiente animación después de que termine
         setTimeout(() => {

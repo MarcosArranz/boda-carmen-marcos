@@ -897,7 +897,7 @@ html {
 @keyframes carouselFadeIn {
     from {
         opacity: 0;
-        filter: blur(15px);
+        filter: blur(20px);
     }
     to {
         opacity: 1;
@@ -912,7 +912,7 @@ html {
     }
     to {
         opacity: 0;
-        filter: blur(15px);
+        filter: blur(20px);
     }
 }
 
