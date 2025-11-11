@@ -95,6 +95,48 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
+// Funciones para pantalla completa
+function openFullscreen() {
+    const modal = document.getElementById('fullscreenModal');
+    modal.classList.add('active');
+    updateFullscreenImage();
+    document.body.style.overflow = 'hidden';
+    
+    // Soporte para teclas de flecha en fullscreen
+    document.addEventListener('keydown', handleFullscreenKeydown);
+}
+
+function closeFullscreen() {
+    const modal = document.getElementById('fullscreenModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    document.removeEventListener('keydown', handleFullscreenKeydown);
+}
+
+function updateFullscreenImage() {
+    const fullscreenImg = document.getElementById('fullscreenImage');
+    const fullscreenCounter = document.getElementById('fullscreenCounter');
+    
+    fullscreenImg.src = slides[currentSlide];
+    fullscreenCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+}
+
+function nextSlideFullscreen() {
+    showSlide(currentSlide + 1);
+    updateFullscreenImage();
+}
+
+function prevSlideFullscreen() {
+    showSlide(currentSlide - 1);
+    updateFullscreenImage();
+}
+
+function handleFullscreenKeydown(e) {
+    if (e.key === 'ArrowLeft') prevSlideFullscreen();
+    if (e.key === 'ArrowRight') nextSlideFullscreen();
+    if (e.key === 'Escape') closeFullscreen();
+}
+
 // Inicializar carrusel cuando cargue el DOM
 document.addEventListener('DOMContentLoaded', () => {
     // Precargar solo las primeras 5 imágenes de inmediato

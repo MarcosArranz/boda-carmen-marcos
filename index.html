@@ -48,6 +48,11 @@
                             </svg>
                         </button>
                     </div>
+                    <button class="carousel-fullscreen-btn" onclick="openFullscreen()" title="Pantalla completa">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                        </svg>
+                    </button>
                     <div class="slide-counter">1 / 13</div>
                 </div>
             </div>
@@ -465,6 +470,25 @@
             <p>&copy; 2026 Nuestro bodorrio </p>
         </div>
     </footer>
+
+    <!-- Modal de pantalla completa para fotos -->
+    <div id="fullscreenModal" class="fullscreen-modal">
+        <button class="fullscreen-close-btn" onclick="closeFullscreen()">✕</button>
+        <img id="fullscreenImage" src="" alt="Foto a pantalla completa">
+        <div class="fullscreen-controls">
+            <button class="carousel-button" onclick="prevSlideFullscreen()" title="Foto anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="carousel-button" onclick="nextSlideFullscreen()" title="Foto siguiente">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="slide-counter" id="fullscreenCounter">1 / 13</div>
+    </div>
 
     <script src="js/countdown.js"></script>
     <script src="js/spotify-loader.js"></script>
