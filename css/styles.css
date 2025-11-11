@@ -267,6 +267,20 @@ html {
     }
 }
 
+@keyframes chimneySmoke {
+    0% {
+        opacity: 0;
+        transform: translateY(0) translateX(0) scale(0.3);
+    }
+    30% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-35px) translateX(3px) scale(0.8);
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -627,7 +641,7 @@ html {
 }
 
 .timeline-icon.microphone-icon {
-    animation: microphoneVibrate 0.3s ease-in-out infinite;
+    animation: microphoneVibrate 1s ease-in-out infinite;
 }
 
 .timeline-icon.guitar-icon {
@@ -657,7 +671,37 @@ html {
 }
 
 .timeline-icon.wand-icon {
-    animation: wandShimmer 5s ease-in-out infinite;
+    animation: wandShimmer 3.5s ease-in-out infinite;
+}
+
+.timeline-icon.food-icon {
+    position: relative;
+}
+
+.timeline-icon.home-icon {
+    position: relative;
+}
+
+.timeline-icon.home-icon::before {
+    content: '~';
+    position: absolute;
+    font-size: 1rem;
+    color: rgba(139, 71, 68, 0.4);
+    animation: chimneySmoke 2.5s ease-out infinite;
+    margin-left: 18px;
+    margin-top: -20px;
+    font-weight: bold;
+}
+
+.timeline-icon.home-icon::after {
+    content: '~';
+    position: absolute;
+    font-size: 0.9rem;
+    color: rgba(139, 71, 68, 0.3);
+    animation: chimneySmoke 3s ease-out infinite 0.5s;
+    margin-left: 16px;
+    margin-top: -18px;
+    font-weight: bold;
 }
 
 .timeline-icon.food-icon {
