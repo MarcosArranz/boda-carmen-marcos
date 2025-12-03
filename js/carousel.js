@@ -3,15 +3,15 @@ let currentSlide = 0;
 let isAnimating = false;
 const slides = [
     'images/6.jpg',
+    'images/8.jpeg',
+    'images/11.jpeg',
     'images/5.jpg',
     'images/1.jpeg',
     'images/2.jpeg',
     'images/3.jpg',
     'images/10.jpeg',
     'images/7.jpeg',
-    'images/8.jpeg',
     'images/9.jpeg',
-    'images/11.jpeg',
     'images/12.jpeg',
     'images/13.jpeg'
 ];
@@ -171,3 +171,50 @@ window.addEventListener('load', () => {
     // En caso de que no se haya precargado todo, hacerlo ahora
     preloadImages();
 });
+
+// Función para copiar el IBAN al portapapeles
+function copyIBAN() {
+    const iban = 'ES61 0128 6001 7801 0019 5314';
+    const ibanWithoutSpaces = iban.replace(/\s/g, '');
+    
+    // Intentar copiar al portapapeles
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ibanWithoutSpaces).then(() => {
+            // Cambiar el ícono temporalmente para mostrar éxito
+            const btn = document.querySelector('.copy-btn');
+            const icon = btn.querySelector('i');
+            icon.className = 'fas fa-check';
+            btn.style.background = '#4caf50';
+            
+            setTimeout(() => {
+                icon.className = 'fas fa-copy';
+                btn.style.background = '';
+            }, 2000);
+        }).catch(err => {
+            alert('Número de cuenta: ' + iban);
+        });
+    } else {
+        // Fallback para navegadores antiguos
+        const textArea = document.createElement('textarea');
+        textArea.value = ibanWithoutSpaces;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            const btn = document.querySelector('.copy-btn');
+            const icon = btn.querySelector('i');
+            icon.className = 'fas fa-check';
+            btn.style.background = '#4caf50';
+            
+            setTimeout(() => {
+                icon.className = 'fas fa-copy';
+                btn.style.background = '';
+            }, 2000);
+        } catch (err) {
+            alert('Número de cuenta: ' + iban);
+        }
+        document.body.removeChild(textArea);
+    }
+}
