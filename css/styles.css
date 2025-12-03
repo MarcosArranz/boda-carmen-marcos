@@ -509,18 +509,15 @@ html {
     display: block;
 }
 
-/* Google Form embed styling: try to avoid an internal scrollbar and let page scroll handle content */
+/* Google Form embed styling: hide internal scrollbar */
 .google-form-wrapper {
     width: 100%;
-    overflow: hidden; /* hide iframe internal scrollbars if possible */
 }
 
 .google-form-wrapper iframe {
     display: block;
     width: 100%;
     border: 0;
-    min-height: 100vh; /* at least one viewport tall so page scrolls naturally */
-    height: auto; /* allow JS to override */
 }
 
 .map-instructions {
