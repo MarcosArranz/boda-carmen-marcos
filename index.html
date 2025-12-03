@@ -292,12 +292,14 @@
                 <!-- Reemplaza el src con la URL de tu Google Form -->
                 <div class="google-form-wrapper">
                     <iframe 
-                        src="https://forms.gle/RuSsEHmUSBQxz9w1A" 
+                        id="googleFormIframe"
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSeYKFjpAU9sfiEjWQy5NrHlfHfnD8Aj4ELN6ETn2QVJZOcyWg/viewform?embedded=true" 
                         width="100%" 
-                        height="800" 
                         frameborder="0" 
                         marginheight="0" 
-                        marginwidth="0">
+                        marginwidth="0"
+                        scrolling="no"
+                        title="Formulario de confirmación">
                         Cargando formulario...
                     </iframe>
                 </div>
@@ -530,5 +532,27 @@
     <script src="js/spotify-loader.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/scroll-animations.js"></script>
+    <script>
+        // Ajuste heurístico de la altura del iframe del formulario.
+        // Nota: no es posible leer el contenido cross-origin del iframe, así que
+        // usamos una heurística (altura mínima de la ventana o 1200px) para
+        // evitar un scrollbar interno en la mayoría de casos.
+        (function () {
+            const iframe = document.getElementById('googleFormIframe');
+            if (!iframe) return;
+
+            function adjustHeight() {
+                // Reducimos 50px respecto a la heurística previa para dejar
+                // un pequeño margen visual y evitar que el iframe tape la UI.
+                const preferred = Math.max(window.innerHeight, 2000) - 580;
+                // Asegurar un mínimo práctico por seguridad
+                iframe.style.height = Math.max(preferred, 300) + 'px';
+            }
+
+            window.addEventListener('resize', adjustHeight);
+            // Ajustes iniciales con pequeño retraso para cuando cargue el layout
+            setTimeout(adjustHeight, 100);
+        })();
+    </script>
 </body>
 </html>
