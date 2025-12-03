@@ -13,35 +13,82 @@ const slides = [
     'images/7.jpeg',
     'images/9.jpeg',
     'images/12.jpeg',
-    'images/13.jpeg'
+    'images/13.jpeg',
+    'images/14.jpg',
+    'images/15.jpg',
+    'images/16.jpg',
+    'images/17.jpg',
+    'images/18.jpg',
+    'images/19.jpg',
+    'images/20.jpg',
+    'images/21.jpg',
+    'images/22.jpg',
+    'images/23.jpg',
+    'images/24.jpg',
+    'images/25.jpg',
+    'images/26.jpg',
+    'images/27.jpg',
+    'images/28.jpg',
+    'images/29.jpg',
+    'images/30.jpg',
+    'images/31.jpg',
+        // Si quieres usar tu video pon aquí el fichero. Coloca el archivo en `videos/1.mov` o cambia la ruta.
+    'images/1.mp4'
 ];
 
 // Precargar todas las imágenes
 function preloadImages() {
-    slides.forEach((imageSrc) => {
-        const img = new Image();
-        img.src = imageSrc;
+    slides.forEach((src) => {
+        // Solo precargar metadata de vídeo y las imágenes reales
+        if (/\.(mp4|webm|mov)$/i.test(src)) {
+            try {
+                const v = document.createElement('video');
+                v.preload = 'metadata';
+                v.src = src;
+            } catch (e) {
+                // ignore
+            }
+        } else {
+            const img = new Image();
+            img.src = src;
+        }
     });
 }
 
 // Precargar solo las primeras imágenes de forma inmediata
 function preloadInitialImages() {
-    // Precargar las primeras 5 imágenes
-    slides.slice(0, 5).forEach((imageSrc) => {
-        const img = new Image();
-        img.src = imageSrc;
+    // Precargar las primeras 5 medias (imágenes o metadata de vídeo)
+    slides.slice(0, 5).forEach((src) => {
+        if (/\.(mp4|webm|mov)$/i.test(src)) {
+            try {
+                const v = document.createElement('video');
+                v.preload = 'metadata';
+                v.src = src;
+            } catch (e) {}
+        } else {
+            const img = new Image();
+            img.src = src;
+        }
     });
 }
 
 // Precargar el resto de imágenes de forma diferida
 function preloadRemainingImages() {
-    // Precargar las imágenes restantes después de 2 segundos
+    // Precargar las medias restantes después de 2 segundos
     setTimeout(() => {
-        slides.slice(5).forEach((imageSrc, index) => {
-            // Espaciar la carga de cada imagen 500ms
+        slides.slice(5).forEach((src, index) => {
+            // Espaciar la carga de cada media 500ms
             setTimeout(() => {
-                const img = new Image();
-                img.src = imageSrc;
+                if (/\.(mp4|webm|mov)$/i.test(src)) {
+                    try {
+                        const v = document.createElement('video');
+                        v.preload = 'metadata';
+                        v.src = src;
+                    } catch (e) {}
+                } else {
+                    const img = new Image();
+                    img.src = src;
+                }
             }, index * 500);
         });
     }, 2000);
@@ -64,22 +111,74 @@ function showSlide(n) {
     }
     
     if (carousel) {
-        // Aplicar clase de salida
+        // Aplicar clase de salida al elemento actual
         carousel.classList.remove('fade-in');
         carousel.classList.add('fade-out');
-        
-        // Cambiar imagen casi al inicio del blur (cuando está muy desenfocada)
-        // Esto hace que el cambio sea imperceptible
+
+        // Cambiar media casi al inicio del blur (cuando está muy desenfocada)
         setTimeout(() => {
-            carousel.src = slides[currentSlide];
-            carousel.classList.remove('fade-out');
-            carousel.classList.add('fade-in');
+            const src = slides[currentSlide];
+            const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+
+            // Crear nuevo elemento de media
+            let newMedia;
+            if (isVideo) {
+                newMedia = document.createElement('video');
+                newMedia.className = 'carousel-image';
+                // atributos antes de asignar src
+                newMedia.setAttribute('muted', '');
+                newMedia.muted = true;
+                newMedia.setAttribute('playsinline', '');
+                newMedia.setAttribute('webkit-playsinline', '');
+                newMedia.setAttribute('loop', '');
+                newMedia.setAttribute('aria-label', 'Video del evento');
+                newMedia.autoplay = true;
+                newMedia.playsInline = true;
+                newMedia.loop = true;
+                newMedia.src = src;
+                // forzar carga y luego reproducir
+                try { newMedia.load(); } catch (e) {}
+            } else {
+                newMedia = document.createElement('img');
+                newMedia.src = src;
+                newMedia.className = 'carousel-image';
+                newMedia.alt = 'Foto del evento';
+            }
+
+            // Añadir transición de entrada
+            newMedia.classList.add('fade-in');
+
+            // Reemplazar el elemento antiguo por el nuevo
+            const parent = carousel.parentNode;
+            // eliminar botón play previo si existiera
+            const prevBtn = parent.querySelector('.media-play-btn');
+            if (prevBtn) prevBtn.parentNode.removeChild(prevBtn);
+
+            parent.replaceChild(newMedia, carousel);
+
+            // Si es vídeo, intentar reproducir automáticamente y en bucle (sin botón)
+            if (isVideo) {
+                try {
+                    // Asegurar propiedades (ya configuradas antes) y forzar play
+                    newMedia.muted = true; // necesario en muchos navegadores para autoplay
+                    newMedia.loop = true;
+                    const playPromise = newMedia.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch((err) => {
+                            console.warn('Autoplay bloqueado o error en play():', err);
+                            // Si falla, el vídeo permanecerá pausado; usuario puede abrir fullscreen para controls
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Reproducción de vídeo fallida', e);
+                }
+            }
+
+            // Permitir siguiente animación después de que termine
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
         }, 50);
-        
-        // Permitir siguiente animación después de que termine
-        setTimeout(() => {
-            isAnimating = false;
-        }, 500);
     }
     
     if (slideCounter) {
@@ -108,17 +207,77 @@ function openFullscreen() {
 
 function closeFullscreen() {
     const modal = document.getElementById('fullscreenModal');
+    // Pausar y eliminar cualquier vídeo que pudiera estar reproduciéndose
+    const media = document.getElementById('fullscreenImage');
+    if (media) {
+        try {
+            if (media.tagName && media.tagName.toLowerCase() === 'video') {
+                media.pause();
+                media.removeAttribute('src');
+            }
+            // eliminar elemento del DOM
+            media.parentNode.removeChild(media);
+        } catch (e) {
+            console.warn('No se pudo limpiar el media fullscreen', e);
+        }
+    }
+    // eliminar botón play si existe
+    try {
+        const modal = document.getElementById('fullscreenModal');
+        const prevBtn = modal.querySelector('.media-play-btn');
+        if (prevBtn) prevBtn.parentNode.removeChild(prevBtn);
+    } catch (e) {}
     modal.classList.remove('active');
     document.body.style.overflow = 'auto';
     document.removeEventListener('keydown', handleFullscreenKeydown);
 }
 
 function updateFullscreenImage() {
-    const fullscreenImg = document.getElementById('fullscreenImage');
     const fullscreenCounter = document.getElementById('fullscreenCounter');
-    
-    fullscreenImg.src = slides[currentSlide];
-    fullscreenCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+    const existing = document.getElementById('fullscreenImage');
+    const src = slides[currentSlide];
+    const isVideo = /\.(mp4|webm|mov)$/i.test(src);
+
+    // Si existe un elemento previo, lo eliminamos antes de crear el nuevo
+    if (existing) existing.parentNode.removeChild(existing);
+
+    if (isVideo) {
+        const video = document.createElement('video');
+        video.id = 'fullscreenImage';
+        video.className = 'fullscreen-media';
+        // atributos útiles para autoplay y iOS
+        video.setAttribute('muted', '');
+        video.muted = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.setAttribute('loop', '');
+        video.autoplay = true;
+        video.playsInline = true;
+        video.loop = true;
+        video.setAttribute('aria-label', 'Video a pantalla completa');
+        video.src = src;
+        try { video.load(); } catch (e) {}
+        // Intentar reproducir y manejar la promesa
+        setTimeout(() => {
+            const p = video.play();
+            if (p && p.catch) p.catch(() => { /* autoplay bloqueado */ });
+        }, 50);
+        // Insertar antes del contenedor de controles (si existe)
+        const modal = document.getElementById('fullscreenModal');
+        modal.insertBefore(video, modal.querySelector('.fullscreen-controls'));
+
+        // No crear botón de play en fullscreen — el vídeo se reproduce automáticamente o el usuario usa controles del navegador
+    } else {
+        const img = document.createElement('img');
+        img.id = 'fullscreenImage';
+        img.src = src;
+        img.alt = 'Foto a pantalla completa';
+        img.className = 'fullscreen-media';
+        const modal = document.getElementById('fullscreenModal');
+        modal.insertBefore(img, modal.querySelector('.fullscreen-controls'));
+    }
+
+    if (fullscreenCounter) fullscreenCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
 }
 
 function nextSlideFullscreen() {

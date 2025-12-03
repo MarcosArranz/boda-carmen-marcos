@@ -1071,6 +1071,39 @@ html {
     animation: carouselFadeOut 0.5s ease;
 }
 
+/* Botón de play sobre medios (carrusel y fullscreen) */
+.media-play-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary-color);
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(139,71,68,0.25);
+    font-size: 1.1rem;
+    z-index: 5;
+    opacity: 0.95;
+}
+
+.media-play-btn i { pointer-events: none; }
+
+/* Asegurar que el video en fullscreen se adapte bien */
+.fullscreen-modal video.fullscreen-media,
+.fullscreen-modal img.fullscreen-media {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    animation: scaleIn 0.3s ease;
+}
+
 @keyframes carouselFadeIn {
     from {
         opacity: 0;
