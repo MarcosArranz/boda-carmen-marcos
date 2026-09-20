@@ -22,7 +22,7 @@ function updateCountdown() {
     if (distance < 0) {
         clearInterval(countdownInterval);
         document.querySelector('.countdown-container').innerHTML = 
-            '<div class="countdown-finished"><h2>¡El evento ha comenzado! 🎉</h2></div>';
+            '<div class="countdown-finished"><h2>Muchas gracias por todo :)</h2></div>';
     }
 }
 
