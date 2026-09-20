@@ -423,6 +423,33 @@
             <div class="accommodation-note">
                 <p><strong>💡 Importante:</strong> Te recomendamos reservar con antelación. Si tienes alguna duda sobre el alojamiento, no dudes en contactarnos</p>
             </div>
+
+            <div class="fotomaton-gallery">
+                <h2 class="section-title">Fotos del Fotomatón</h2>
+                <div class="carousel-container">
+                    <div class="carousel-wrapper">
+                        <img class="fotomaton-carousel-image" src="FOTOMATON/22961-GaleriaCliente834135.jpg" alt="Foto del fotomatón">
+                        <div class="carousel-controls">
+                            <button class="carousel-button" onclick="prevFotomatonSlide()" title="Foto anterior">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </button>
+                            <button class="carousel-button" onclick="nextFotomatonSlide()" title="Foto siguiente">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                        <button class="carousel-fullscreen-btn" onclick="openFotomatonFullscreen()" title="Pantalla completa">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            </svg>
+                        </button>
+                        <div class="slide-counter fotomaton-slide-counter">1 / 411</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -478,9 +505,28 @@
         <div class="slide-counter" id="fullscreenCounter">1 / 13</div>
     </div>
 
+    <div id="fotomatonFullscreenModal" class="fullscreen-modal fotomaton-fullscreen-modal">
+        <button class="fullscreen-close-btn" onclick="closeFotomatonFullscreen()">✕</button>
+        <img id="fotomatonFullscreenImage" class="fullscreen-media" src="FOTOMATON/22961-GaleriaCliente834135.jpg" alt="Foto del fotomatón a pantalla completa">
+        <div class="fullscreen-controls">
+            <button class="carousel-button" onclick="prevFotomatonSlideFullscreen()" title="Foto anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="carousel-button" onclick="nextFotomatonSlideFullscreen()" title="Foto siguiente">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="slide-counter fotomaton-fullscreen-counter">1 / 411</div>
+    </div>
+
     <script src="js/countdown.js"></script>
     <script src="js/spotify-loader.js"></script>
     <script src="js/carousel.js"></script>
+    <script src="js/fotomaton-carousel.js"></script>
     <script src="js/scroll-animations.js"></script>
 </body>
 </html>
