@@ -1,9 +1,14 @@
+const fotomatonMissingNumbers = new Set([589, 591, 607, 608]);
+
 const fotomatonSlides = [
     'FOTOMATON/22961-GaleriaCliente834135.jpg',
     ...Array.from({ length: 410 }, (_, index) =>
         `FOTOMATON/22961-GaleriaCliente${834251 + index}.jpg`
     )
-];
+].filter((src) => {
+    const match = src.match(/834(\d+)\.jpg$/);
+    return !match || !fotomatonMissingNumbers.has(Number(match[1]));
+});
 
 let fotomatonCurrentSlide = 0;
 let fotomatonCurrentPage = 0;
