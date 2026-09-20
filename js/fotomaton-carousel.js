@@ -6,35 +6,42 @@ const fotomatonSlides = [
 ];
 
 let fotomatonCurrentSlide = 0;
-let fotomatonIsAnimating = false;
+let fotomatonCurrentPage = 0;
+const fotomatonPhotosPerPage = 12;
+const fotomatonTotalPages = Math.ceil(fotomatonSlides.length / fotomatonPhotosPerPage);
 
-function showFotomatonSlide(index) {
-    if (fotomatonIsAnimating) return;
+function renderFotomatonPage() {
+    const grid = document.getElementById('fotomatonGrid');
+    const pageCounter = document.querySelector('.fotomaton-page-counter');
+    if (!grid) return;
 
-    const carousel = document.querySelector('.fotomaton-carousel-image');
-    const counter = document.querySelector('.fotomaton-slide-counter');
-    if (!carousel) return;
+    const firstPhoto = fotomatonCurrentPage * fotomatonPhotosPerPage;
+    const pagePhotos = fotomatonSlides.slice(firstPhoto, firstPhoto + fotomatonPhotosPerPage);
+    grid.innerHTML = pagePhotos.map((src, pageIndex) => {
+        const photoIndex = firstPhoto + pageIndex;
+        const selectedClass = photoIndex === fotomatonCurrentSlide ? ' selected' : '';
+        return `<button class="fotomaton-thumbnail${selectedClass}" onclick="selectFotomatonPhoto(${photoIndex})" title="Seleccionar foto ${photoIndex + 1}">
+            <img src="${src}" alt="Foto del fotomatón ${photoIndex + 1}" loading="lazy">
+        </button>`;
+    }).join('');
 
-    fotomatonIsAnimating = true;
-    fotomatonCurrentSlide = (index + fotomatonSlides.length) % fotomatonSlides.length;
-    carousel.classList.remove('fade-in');
-    carousel.classList.add('fade-out');
-
-    setTimeout(() => {
-        carousel.src = fotomatonSlides[fotomatonCurrentSlide];
-        carousel.classList.remove('fade-out');
-        carousel.classList.add('fade-in');
-        counter.textContent = `${fotomatonCurrentSlide + 1} / ${fotomatonSlides.length}`;
-        fotomatonIsAnimating = false;
-    }, 250);
+    pageCounter.textContent = `Página ${fotomatonCurrentPage + 1} de ${fotomatonTotalPages}`;
 }
 
-function nextFotomatonSlide() {
-    showFotomatonSlide(fotomatonCurrentSlide + 1);
+function selectFotomatonPhoto(index) {
+    fotomatonCurrentSlide = index;
+    renderFotomatonPage();
+    openFotomatonFullscreen();
 }
 
-function prevFotomatonSlide() {
-    showFotomatonSlide(fotomatonCurrentSlide - 1);
+function nextFotomatonPage() {
+    fotomatonCurrentPage = (fotomatonCurrentPage + 1) % fotomatonTotalPages;
+    renderFotomatonPage();
+}
+
+function prevFotomatonPage() {
+    fotomatonCurrentPage = (fotomatonCurrentPage - 1 + fotomatonTotalPages) % fotomatonTotalPages;
+    renderFotomatonPage();
 }
 
 function downloadFotomatonPhoto() {
@@ -70,14 +77,16 @@ function updateFotomatonFullscreen() {
 }
 
 function nextFotomatonSlideFullscreen() {
-    showFotomatonSlide(fotomatonCurrentSlide + 1);
+    fotomatonCurrentSlide = (fotomatonCurrentSlide + 1) % fotomatonSlides.length;
     updateFotomatonFullscreen();
 }
 
 function prevFotomatonSlideFullscreen() {
-    showFotomatonSlide(fotomatonCurrentSlide - 1);
+    fotomatonCurrentSlide = (fotomatonCurrentSlide - 1 + fotomatonSlides.length) % fotomatonSlides.length;
     updateFotomatonFullscreen();
 }
+
+document.addEventListener('DOMContentLoaded', renderFotomatonPage);
 
 document.addEventListener('keydown', (event) => {
     const modal = document.getElementById('fotomatonFullscreenModal');
