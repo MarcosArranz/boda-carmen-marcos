@@ -37,6 +37,16 @@ function prevFotomatonSlide() {
     showFotomatonSlide(fotomatonCurrentSlide - 1);
 }
 
+function downloadFotomatonPhoto() {
+    const imageUrl = fotomatonSlides[fotomatonCurrentSlide];
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageUrl;
+    downloadLink.download = imageUrl.split('/').pop();
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+}
+
 function openFotomatonFullscreen() {
     const modal = document.getElementById('fotomatonFullscreenModal');
     const image = document.getElementById('fotomatonFullscreenImage');

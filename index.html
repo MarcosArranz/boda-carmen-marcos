@@ -425,7 +425,7 @@
             </div>
 
             <div class="fotomaton-gallery">
-                <h2 class="section-title">Fotos del Fotomatón</h2>
+                <h2 class="section-title">Fotomatón</h2>
                 <div class="carousel-container">
                     <div class="carousel-wrapper">
                         <img class="fotomaton-carousel-image" src="FOTOMATON/22961-GaleriaCliente834135.jpg" alt="Foto del fotomatón">
@@ -444,6 +444,13 @@
                         <button class="carousel-fullscreen-btn" onclick="openFotomatonFullscreen()" title="Pantalla completa">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                            </svg>
+                        </button>
+                        <button class="fotomaton-download-btn" onclick="downloadFotomatonPhoto()" title="Descargar foto">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v12"></path>
+                                <path d="m7 10 5 5 5-5"></path>
+                                <path d="M5 21h14"></path>
                             </svg>
                         </button>
                         <div class="slide-counter fotomaton-slide-counter">1 / 411</div>
@@ -507,6 +514,13 @@
 
     <div id="fotomatonFullscreenModal" class="fullscreen-modal fotomaton-fullscreen-modal">
         <button class="fullscreen-close-btn" onclick="closeFotomatonFullscreen()">✕</button>
+        <button class="fotomaton-fullscreen-download-btn" onclick="downloadFotomatonPhoto()" title="Descargar foto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v12"></path>
+                <path d="m7 10 5 5 5-5"></path>
+                <path d="M5 21h14"></path>
+            </svg>
+        </button>
         <img id="fotomatonFullscreenImage" class="fullscreen-media" src="FOTOMATON/22961-GaleriaCliente834135.jpg" alt="Foto del fotomatón a pantalla completa">
         <div class="fullscreen-controls">
             <button class="carousel-button" onclick="prevFotomatonSlideFullscreen()" title="Foto anterior">
