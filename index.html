@@ -445,6 +445,51 @@
         </div>
     </section>
 
+    <section class="section fotomaton-gallery once-gallery">
+        <div class="container">
+            <h2 class="section-title">ONCE</h2>
+            <div class="fotomaton-grid" id="onceGrid"></div>
+            <div class="fotomaton-gallery-controls">
+                <button class="carousel-button" onclick="prevOncePage()" title="Página anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <span class="fotomaton-page-counter once-page-counter">Página 1 de 1</span>
+                <button class="carousel-button" onclick="nextOncePage()" title="Página siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="onceFullscreenModal" class="fullscreen-modal fotomaton-fullscreen-modal">
+        <button class="fullscreen-close-btn" onclick="closeOnceFullscreen()">✕</button>
+        <button class="fotomaton-fullscreen-download-btn" onclick="downloadOncePhoto()" title="Descargar foto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v12"></path>
+                <path d="m7 10 5 5 5-5"></path>
+                <path d="M5 21h14"></path>
+            </svg>
+        </button>
+        <img id="onceFullscreenImage" class="fullscreen-media" src="" alt="Foto de ONCE a pantalla completa">
+        <div class="fullscreen-controls">
+            <button class="carousel-button" onclick="prevOnceSlideFullscreen()" title="Foto anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="carousel-button" onclick="nextOnceSlideFullscreen()" title="Foto siguiente">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="slide-counter once-fullscreen-counter">1 / 1</div>
+    </div>
+
     <!-- Número de Cuenta -->
     <section id="account" class="section account-section">
         <div class="container">
@@ -526,6 +571,8 @@
     <script src="js/spotify-loader.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/fotomaton-carousel.js"></script>
+    <script src="js/once-gallery-data.js"></script>
+    <script src="js/once-gallery.js"></script>
     <script src="js/scroll-animations.js"></script>
 </body>
 </html>
