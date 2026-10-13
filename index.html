@@ -7,6 +7,7 @@
     <meta name="version" content="1.0.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
     <!-- Navegación -->
@@ -75,6 +76,13 @@
                     </svg>
                 </button>
             </div>
+            <div class="photo-pack-download">
+                <button class="photo-pack-download-btn" onclick="downloadPhotoPack('fotomaton', this)">
+                    <i class="fas fa-file-zipper" aria-hidden="true"></i>
+                    Descargar todas las fotos
+                </button>
+                <span class="photo-pack-status" id="fotomatonDownloadStatus" aria-live="polite"></span>
+            </div>
         </div>
     </section>
 
@@ -94,6 +102,13 @@
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </button>
+            </div>
+            <div class="photo-pack-download">
+                <button class="photo-pack-download-btn" onclick="downloadPhotoPack('once', this)">
+                    <i class="fas fa-file-zipper" aria-hidden="true"></i>
+                    Descargar todas las fotos
+                </button>
+                <span class="photo-pack-status" id="onceDownloadStatus" aria-live="polite"></span>
             </div>
         </div>
     </section>
@@ -537,6 +552,7 @@
     <script src="js/fotomaton-carousel.js"></script>
     <script src="js/once-gallery-data.js"></script>
     <script src="js/once-gallery.js"></script>
+    <script src="js/photo-pack-download.js"></script>
     <script src="js/scroll-animations.js"></script>
 </body>
 </html>

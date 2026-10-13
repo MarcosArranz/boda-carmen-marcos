@@ -9,6 +9,7 @@ const fotomatonSlides = [
     const match = src.match(/834(\d+)\.jpg$/);
     return !match || !fotomatonMissingNumbers.has(Number(match[1]));
 });
+window.fotomatonSlides = fotomatonSlides;
 
 let fotomatonCurrentSlide = 0;
 let fotomatonCurrentPage = 0;
