@@ -1,18 +1,3 @@
-async function addFotomatonArchive(zip, archivePath, photoNames, onProgress) {
-    const response = await fetch(archivePath);
-    if (!response.ok) throw new Error(`No se pudo leer ${archivePath}.`);
-
-    const sourceZip = await JSZip.loadAsync(await response.arrayBuffer());
-    for (const [archivePath, file] of Object.entries(sourceZip.files)) {
-        const photoName = archivePath.split('/').pop();
-        if (file.dir || !photoNames.has(photoName)) continue;
-
-        const photoData = await file.async('uint8array');
-        zip.file(photoName, photoData, { binary: true });
-        onProgress(photoName);
-    }
-}
-
 async function downloadPhotoPack(packName, button) {
     const statusId = packName === 'fotomaton'
         ? 'fotomatonDownloadStatus'
@@ -32,37 +17,21 @@ async function downloadPhotoPack(packName, button) {
     status.textContent = '';
 
     try {
-        if (packName === 'once') {
-            const downloadLink = document.createElement('a');
-            downloadLink.href = 'ONCE/BODA-20260923T101224Z-1-001.zip';
-            downloadLink.download = 'once-karmen-y-marcos.zip';
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            downloadLink.remove();
-            status.textContent = `Descarga iniciada con ${photos.length} fotos.`;
-            return;
-        }
-
         if (!window.JSZip) throw new Error('No se pudo cargar el creador de archivos ZIP.');
 
         const zip = new JSZip();
-        const photoNames = new Set(photos.map((photoPath) => photoPath.split('/').pop()));
-        const archivePaths = [
-            'FOTOMATON/miarchivo.zip',
-            'FOTOMATON/miarchivo (1).zip',
-            'FOTOMATON/miarchivo (2).zip'
-        ];
-        let processedPhotos = 0;
+        for (let index = 0; index < photos.length; index += 1) {
+            const photoPath = photos[index];
+            status.textContent = `Descargando fotos ${index + 1} de ${photos.length}...`;
 
-        for (let index = 0; index < archivePaths.length; index += 1) {
-            status.textContent = `Preparando archivo ${index + 1} de ${archivePaths.length}...`;
-            await addFotomatonArchive(zip, archivePaths[index], photoNames, () => {
-                processedPhotos += 1;
-                status.textContent = `Preparando fotos ${processedPhotos} de ${photos.length}...`;
-            });
+            const response = await fetch(photoPath);
+            if (!response.ok) {
+                throw new Error(`No se pudo descargar ${photoPath} (HTTP ${response.status}).`);
+            }
+
+            const photoData = await response.arrayBuffer();
+            zip.file(photoPath.split('/').pop(), photoData, { binary: true });
         }
-
-        if (processedPhotos !== photos.length) throw new Error('No se han encontrado todas las fotos del pack.');
 
         status.textContent = 'Creando ZIP...';
         const archiveBlob = await zip.generateAsync(
