@@ -1,12 +1,14 @@
-// Animaciones de aparición al hacer scroll.
-// Se usa IntersectionObserver (sin listeners de scroll) y se deja de observar
-// cada elemento en cuanto aparece, para no consumir recursos de más.
+// Aparición suave de los bloques al hacer scroll.
+// Usa IntersectionObserver (sin listeners de scroll) y deja de observar cada
+// bloque en cuanto aparece, para no consumir recursos de más.
 document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const revealElements = document.querySelectorAll(
-        '.scroll-reveal, .info-grid, .timeline, .hotels-grid'
-    );
+    const revealElements = Array.from(document.querySelectorAll(
+        '.info-grid, .timeline, .hotels-grid, .info-details, .map-container, .countdown-container, .account-content'
+    ));
+
+    if (!revealElements.length) return;
 
     const revealAll = () => revealElements.forEach((el) => el.classList.add('visible'));
 
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const isMobile = window.innerWidth <= 768;
+    revealElements.forEach((el) => el.classList.add('scroll-reveal'));
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -24,29 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.unobserve(entry.target);
         });
     }, {
-        threshold: isMobile ? 0.2 : 0.1,
-        rootMargin: isMobile ? '0px 0px -50px 0px' : '0px 0px -100px 0px'
+        threshold: 0,
+        rootMargin: '0px 0px -8% 0px'
     });
 
-    revealElements.forEach((el) => {
-        if (!el.classList.contains('scroll-reveal')) el.classList.add('scroll-reveal');
-        observer.observe(el);
-    });
+    revealElements.forEach((el) => observer.observe(el));
 
-    // En móvil las animaciones son algo más cortas para que la página se sienta ágil.
-    if (isMobile) {
-        revealElements.forEach((el) => {
-            el.style.animationDuration = '0.6s';
-        });
-    }
-
-    // Red de seguridad: si al cabo de un momento hay contenido ya visible en
-    // pantalla que el observer no ha revelado, lo mostramos igualmente.
-    setTimeout(() => {
+    // Red de seguridad: si algo falla, lo que ya está en pantalla se muestra igual.
+    window.setTimeout(() => {
         revealElements.forEach((el) => {
             if (el.classList.contains('visible')) return;
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > -200) {
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
                 el.classList.add('visible');
             }
         });

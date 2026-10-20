@@ -1,9 +1,10 @@
 /**
  * Utilidades compartidas para servir imágenes optimizadas.
  *
- * Cada foto original tiene dos derivados generados con tools/optimize-images.py:
+ * Cada foto original tiene tres derivados generados con tools/optimize-images.py:
  *   foto.jpg  ->  thumbs/foto.webp  (miniatura ~20 KB)
  *                 large/foto.webp   (pantalla completa ~200 KB)
+ *                 jpg/foto.jpg      (JPG 1600 px para el ZIP de descarga)
  *
  * Si un derivado no existe, las funciones de carga vuelven automáticamente al
  * original, de modo que la web nunca se queda sin mostrar una foto.
@@ -11,14 +12,18 @@
 (function (global) {
     'use strict';
 
-    function toVariant(src, dir) {
+    function toVariantExt(src, dir, ext) {
         if (!src) return src;
         var slash = src.lastIndexOf('/');
         var folder = slash === -1 ? '' : src.slice(0, slash + 1);
         var file = src.slice(slash + 1);
         var dot = file.lastIndexOf('.');
         var base = dot === -1 ? file : file.slice(0, dot);
-        return folder + dir + '/' + base + '.webp';
+        return folder + dir + '/' + base + ext;
+    }
+
+    function toVariant(src, dir) {
+        return toVariantExt(src, dir, '.webp');
     }
 
     function thumb(src) {
@@ -27,6 +32,11 @@
 
     function large(src) {
         return toVariant(src, 'large');
+    }
+
+    /** Versión JPG 1600 px, la que se incluye en el ZIP de descarga. */
+    function jpg(src) {
+        return toVariantExt(src, 'jpg', '.jpg');
     }
 
     /**
@@ -104,11 +114,18 @@
         return large(src);
     }
 
+    /** JPG 1600 px para la descarga del pack completo. */
+    function jpgUrl(src) {
+        return jpg(src);
+    }
+
     global.MediaUtils = {
         thumb: thumb,
         large: large,
+        jpg: jpg,
         thumbUrl: thumbUrl,
         largeUrl: largeUrl,
+        jpgUrl: jpgUrl,
         loadInto: loadInto,
         warm: warm
     };

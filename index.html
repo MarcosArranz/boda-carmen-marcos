@@ -94,11 +94,12 @@
                 </button>
             </div>
             <div class="photo-pack-download">
-                <button class="photo-pack-download-btn" onclick="downloadPhotoPack('fotomaton', this)">
+                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('fotomaton', this)"
+                        title="Descarga las 407 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
                     <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
                     Descargar todas las fotos
                 </button>
-                <span class="photo-pack-status" id="fotomatonDownloadStatus" aria-live="polite"></span>
+                <span class="photo-pack-status" id="fotomatonDownloadStatus" role="status" aria-live="polite"></span>
             </div>
         </div>
     </section>
@@ -121,11 +122,12 @@
                 </button>
             </div>
             <div class="photo-pack-download">
-                <button class="photo-pack-download-btn" onclick="downloadPhotoPack('once', this)">
+                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('once', this)"
+                        title="Descarga las 328 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
                     <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
                     Descargar todas las fotos
                 </button>
-                <span class="photo-pack-status" id="onceDownloadStatus" aria-live="polite"></span>
+                <span class="photo-pack-status" id="onceDownloadStatus" role="status" aria-live="polite"></span>
             </div>
         </div>
     </section>
@@ -572,5 +574,6 @@
     <script src="js/once-gallery.js" defer></script>
     <script src="js/photo-pack-download.js" defer></script>
     <script src="js/scroll-animations.js" defer></script>
+    <script src="js/ui.js" defer></script>
 </body>
 </html>

@@ -2095,3 +2095,37 @@ a,
     }
 }
 
+/* ---------- Descarga del pack de fotos ---------- */
+.photo-pack-progress {
+    width: min(320px, 100%);
+    height: 4px;
+    border-radius: 999px;
+    background: var(--accent-color);
+    overflow: hidden;
+}
+
+.photo-pack-progress[hidden] {
+    display: none;
+}
+
+.photo-pack-progress-bar {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--primary-color);
+    transition: width 0.25s ease;
+}
+
+/* Estado del navbar al hacer scroll y enlace de la sección visible */
+.navbar.is-scrolled {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+.nav-menu a.is-active {
+    color: var(--primary-color);
+}
+
+.nav-menu a.is-active::after {
+    width: 100%;
+}
+

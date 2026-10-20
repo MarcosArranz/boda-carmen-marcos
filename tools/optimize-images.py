@@ -1,12 +1,13 @@
 """
-Genera versiones optimizadas (WebP) de todas las fotos de la web.
+Genera versiones optimizadas de todas las fotos de la web.
 
 Para cada imagen original crea:
   <carpeta>/thumbs/<nombre>.webp  -> miniatura para las cuadrículas (máx. 480 px)
   <carpeta>/large/<nombre>.webp   -> versión para carrusel / pantalla completa (máx. 1600 px)
+  <carpeta>/jpg/<nombre>.jpg      -> versión JPG 1600 px para la descarga en ZIP
 
-Los originales NO se modifican, así que la descarga de fotos sigue dando la
-calidad máxima y la web funciona igual si falta algún derivado.
+Los originales NO se modifican: la web funciona igual si falta algún derivado y
+cada foto se puede descargar suelta en calidad original.
 
 Uso:
     python tools/optimize-images.py            # procesa todo (omite lo ya hecho)
@@ -22,15 +23,16 @@ from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Carpeta -> (tamaño miniatura, calidad miniatura, tamaño grande, calidad grande)
-FOLDERS = {
-    "FOTOMATON": (480, 72, 1600, 78),
-    "ONCE": (480, 72, 1600, 78),
-    "images": (480, 72, 1600, 78),
+# Variante -> (lado máximo, calidad, método WebP, extensión, formato)
+VARIANTS = {
+    "thumbs": (480, 72, 6, ".webp", "WEBP"),
+    "large": (1600, 78, 4, ".webp", "WEBP"),
+    "jpg": (1600, 90, None, ".jpg", "JPEG"),
 }
 
+FOLDERS = ("FOTOMATON", "ONCE", "images")
+
 EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
-VARIANTS = ("thumbs", "large")
 
 
 def load_image(path, max_side):
@@ -55,15 +57,11 @@ def load_image(path, max_side):
 
 def process_file(src_path, folder, force):
     name = os.path.splitext(os.path.basename(src_path))[0]
-    thumb_size, thumb_quality, large_size, large_quality = FOLDERS[folder]
     results = []
 
-    for variant, max_side, quality in (
-        ("thumbs", thumb_size, thumb_quality),
-        ("large", large_size, large_quality),
-    ):
+    for variant, (max_side, quality, method, ext, fmt) in VARIANTS.items():
         dst_dir = os.path.join(ROOT, folder, variant)
-        dst_path = os.path.join(dst_dir, name + ".webp")
+        dst_path = os.path.join(dst_dir, name + ext)
 
         if not force and os.path.exists(dst_path):
             if os.path.getmtime(dst_path) >= os.path.getmtime(src_path):
@@ -72,13 +70,12 @@ def process_file(src_path, folder, force):
 
         img = load_image(src_path, max_side)
         os.makedirs(dst_dir, exist_ok=True)
-        img.save(
-            dst_path,
-            "WEBP",
-            quality=quality,
-            method=6 if variant == "thumbs" else 4,
-            optimize=True,
-        )
+
+        if fmt == "WEBP":
+            img.save(dst_path, "WEBP", quality=quality, method=method, optimize=True)
+        else:
+            img.save(dst_path, "JPEG", quality=quality, optimize=True, progressive=True)
+
         results.append((dst_path, os.path.getsize(dst_path), False))
 
     return results
