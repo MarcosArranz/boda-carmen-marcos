@@ -6,36 +6,72 @@ function getOnceSlides() {
     return Array.isArray(window.onceSlides) ? window.onceSlides : [];
 }
 
+function oncePageStart(page) {
+    return page * oncePhotosPerPage;
+}
+
 function renderOncePage() {
     const grid = document.getElementById('onceGrid');
     const pageCounter = document.querySelector('.once-page-counter');
     const onceSlides = getOnceSlides();
-    if (!grid || onceSlides.length === 0) {
-        if (grid) grid.innerHTML = '';
+
+    if (!grid) return;
+    if (onceSlides.length === 0) {
+        grid.innerHTML = '';
         if (pageCounter) pageCounter.textContent = 'Página 0 de 0';
         return;
     }
 
     const totalPages = Math.ceil(onceSlides.length / oncePhotosPerPage);
-    const firstPhoto = onceCurrentPage * oncePhotosPerPage;
+    const firstPhoto = oncePageStart(onceCurrentPage);
     const pagePhotos = onceSlides.slice(firstPhoto, firstPhoto + oncePhotosPerPage);
 
     grid.innerHTML = pagePhotos.map((src, pageIndex) => {
         const photoIndex = firstPhoto + pageIndex;
         const selectedClass = photoIndex === onceCurrentSlide ? ' selected' : '';
-        return `<button class="fotomaton-thumbnail${selectedClass}" onclick="selectOncePhoto(${photoIndex})" title="Seleccionar foto ${photoIndex + 1}">
-            <img src="${src}" alt="Foto de ONCE ${photoIndex + 1}" loading="lazy">
+        return `<button class="fotomaton-thumbnail${selectedClass}" type="button" onclick="selectOncePhoto(${photoIndex})" title="Seleccionar foto ${photoIndex + 1}">
+            <img src="${MediaUtils.thumbUrl(src)}" alt="Foto de ONCE ${photoIndex + 1}" loading="lazy" decoding="async" width="480" height="480" data-original="${src}">
         </button>`;
     }).join('');
 
-    pageCounter.textContent = `Página ${onceCurrentPage + 1} de ${totalPages}`;
+    // Si la miniatura optimizada faltara, usamos el original.
+    grid.querySelectorAll('img[data-original]').forEach((img) => {
+        img.addEventListener('error', function onError() {
+            img.removeEventListener('error', onError);
+            img.src = img.dataset.original;
+        });
+    });
+
+    if (pageCounter) {
+        pageCounter.textContent = `Página ${onceCurrentPage + 1} de ${totalPages}`;
+    }
+
+    warmOncePage(onceCurrentPage + 1);
+    warmOncePage(onceCurrentPage - 1);
+}
+
+function warmOncePage(page) {
+    const onceSlides = getOnceSlides();
+    const totalPages = Math.ceil(onceSlides.length / oncePhotosPerPage);
+    if (page < 0 || page >= totalPages) return;
+
+    const firstPhoto = oncePageStart(page);
+    const urls = onceSlides
+        .slice(firstPhoto, firstPhoto + oncePhotosPerPage)
+        .map((src) => MediaUtils.thumbUrl(src));
+
+    MediaUtils.warm(urls);
 }
 
 function selectOncePhoto(index) {
     const onceSlides = getOnceSlides();
     if (!onceSlides.length) return;
+
     onceCurrentSlide = index;
-    renderOncePage();
+    document.querySelectorAll('#onceGrid .fotomaton-thumbnail').forEach((thumbnail, pageIndex) => {
+        const photoIndex = oncePageStart(onceCurrentPage) + pageIndex;
+        thumbnail.classList.toggle('selected', photoIndex === index);
+    });
     openOnceFullscreen();
 }
 
@@ -65,17 +101,38 @@ function downloadOncePhoto() {
     downloadLink.remove();
 }
 
+function updateOnceFullscreen() {
+    const onceSlides = getOnceSlides();
+    if (!onceSlides.length) return;
+
+    const image = document.getElementById('onceFullscreenImage');
+    const counter = document.querySelector('.once-fullscreen-counter');
+    if (!image) return;
+
+    image.classList.add('is-loading');
+    MediaUtils.loadInto(image, onceSlides[onceCurrentSlide], (el) => el.classList.remove('is-loading'));
+
+    if (counter) {
+        counter.textContent = `${onceCurrentSlide + 1} / ${onceSlides.length}`;
+    }
+
+    const total = onceSlides.length;
+    const urls = [1, -1].map((offset) =>
+        MediaUtils.largeUrl(onceSlides[(onceCurrentSlide + offset + total) % total])
+    );
+    MediaUtils.warm(urls);
+}
+
 function openOnceFullscreen() {
     const onceSlides = getOnceSlides();
     if (!onceSlides.length) return;
-    const modal = document.getElementById('onceFullscreenModal');
-    const image = document.getElementById('onceFullscreenImage');
-    const counter = document.querySelector('.once-fullscreen-counter');
 
-    image.src = onceSlides[onceCurrentSlide];
-    counter.textContent = `${onceCurrentSlide + 1} / ${onceSlides.length}`;
+    const modal = document.getElementById('onceFullscreenModal');
+    if (!modal) return;
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    updateOnceFullscreen();
 }
 
 function closeOnceFullscreen() {
@@ -83,13 +140,6 @@ function closeOnceFullscreen() {
     if (!modal) return;
     modal.classList.remove('active');
     document.body.style.overflow = '';
-}
-
-function updateOnceFullscreen() {
-    const onceSlides = getOnceSlides();
-    if (!onceSlides.length) return;
-    document.getElementById('onceFullscreenImage').src = onceSlides[onceCurrentSlide];
-    document.querySelector('.once-fullscreen-counter').textContent = `${onceCurrentSlide + 1} / ${onceSlides.length}`;
 }
 
 function nextOnceSlideFullscreen() {

@@ -1,5 +1,7 @@
 // Cargar canciones de Spotify usando API backend en Vercel
 const TRACKS_CONTAINER = document.getElementById('spotify-tracks-list');
+// Si la sección de Spotify no está en la página, no hacemos ninguna petición.
+const SPOTIFY_ENABLED = Boolean(TRACKS_CONTAINER);
 
 // En Neocities, cambiar esta URL por tu URL de Vercel
 // Ejemplo: https://boda-karmen-marcos.vercel.app/api/spotify
@@ -9,6 +11,7 @@ const API_URL = window.location.hostname === 'localhost' || window.location.host
 
 // Cargar la información de la playlist desde el servidor backend
 async function loadPlaylist() {
+    if (!SPOTIFY_ENABLED) return;
     try {
         // Añadir timestamp para evitar caché
         const timestamp = new Date().getTime();

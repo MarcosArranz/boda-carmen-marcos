@@ -11,32 +11,63 @@ const fotomatonSlides = [
 });
 window.fotomatonSlides = fotomatonSlides;
 
-let fotomatonCurrentSlide = 0;
-let fotomatonCurrentPage = 0;
 const fotomatonPhotosPerPage = 12;
 const fotomatonTotalPages = Math.ceil(fotomatonSlides.length / fotomatonPhotosPerPage);
+
+let fotomatonCurrentSlide = 0;
+let fotomatonCurrentPage = 0;
+
+function fotomatonPageStart(page) {
+    return page * fotomatonPhotosPerPage;
+}
 
 function renderFotomatonPage() {
     const grid = document.getElementById('fotomatonGrid');
     const pageCounter = document.querySelector('.fotomaton-page-counter');
     if (!grid) return;
 
-    const firstPhoto = fotomatonCurrentPage * fotomatonPhotosPerPage;
+    const firstPhoto = fotomatonPageStart(fotomatonCurrentPage);
     const pagePhotos = fotomatonSlides.slice(firstPhoto, firstPhoto + fotomatonPhotosPerPage);
+
     grid.innerHTML = pagePhotos.map((src, pageIndex) => {
         const photoIndex = firstPhoto + pageIndex;
         const selectedClass = photoIndex === fotomatonCurrentSlide ? ' selected' : '';
-        return `<button class="fotomaton-thumbnail${selectedClass}" onclick="selectFotomatonPhoto(${photoIndex})" title="Seleccionar foto ${photoIndex + 1}">
-            <img src="${src}" alt="Foto del fotomatón ${photoIndex + 1}" loading="lazy">
+        return `<button class="fotomaton-thumbnail${selectedClass}" type="button" onclick="selectFotomatonPhoto(${photoIndex})" title="Seleccionar foto ${photoIndex + 1}">
+            <img src="${MediaUtils.thumbUrl(src)}" alt="Foto del fotomatón ${photoIndex + 1}" loading="lazy" decoding="async" width="480" height="480" data-original="${src}">
         </button>`;
     }).join('');
 
-    pageCounter.textContent = `Página ${fotomatonCurrentPage + 1} de ${fotomatonTotalPages}`;
+    // Si la miniatura optimizada faltara, usamos el original.
+    grid.querySelectorAll('img[data-original]').forEach((img) => {
+        img.addEventListener('error', function onError() {
+            img.removeEventListener('error', onError);
+            img.src = img.dataset.original;
+        });
+    });
+
+    if (pageCounter) {
+        pageCounter.textContent = `Página ${fotomatonCurrentPage + 1} de ${fotomatonTotalPages}`;
+    }
+
+    warmFotomatonPage(fotomatonCurrentPage + 1);
+    warmFotomatonPage(fotomatonCurrentPage - 1);
+}
+
+function warmFotomatonPage(page) {
+    if (page < 0 || page >= fotomatonTotalPages) return;
+    const firstPhoto = fotomatonPageStart(page);
+    const urls = fotomatonSlides
+        .slice(firstPhoto, firstPhoto + fotomatonPhotosPerPage)
+        .map((src) => MediaUtils.thumbUrl(src));
+    MediaUtils.warm(urls);
 }
 
 function selectFotomatonPhoto(index) {
     fotomatonCurrentSlide = index;
-    renderFotomatonPage();
+    document.querySelectorAll('#fotomatonGrid .fotomaton-thumbnail').forEach((thumbnail, pageIndex) => {
+        const photoIndex = fotomatonPageStart(fotomatonCurrentPage) + pageIndex;
+        thumbnail.classList.toggle('selected', photoIndex === index);
+    });
     openFotomatonFullscreen();
 }
 
@@ -60,26 +91,38 @@ function downloadFotomatonPhoto() {
     downloadLink.remove();
 }
 
-function openFotomatonFullscreen() {
-    const modal = document.getElementById('fotomatonFullscreenModal');
+function updateFotomatonFullscreen() {
     const image = document.getElementById('fotomatonFullscreenImage');
     const counter = document.querySelector('.fotomaton-fullscreen-counter');
+    if (!image) return;
 
-    image.src = fotomatonSlides[fotomatonCurrentSlide];
-    counter.textContent = `${fotomatonCurrentSlide + 1} / ${fotomatonSlides.length}`;
+    image.classList.add('is-loading');
+    MediaUtils.loadInto(image, fotomatonSlides[fotomatonCurrentSlide], (el) => el.classList.remove('is-loading'));
+
+    if (counter) {
+        counter.textContent = `${fotomatonCurrentSlide + 1} / ${fotomatonSlides.length}`;
+    }
+
+    const total = fotomatonSlides.length;
+    const urls = [1, -1].map((offset) =>
+        MediaUtils.largeUrl(fotomatonSlides[(fotomatonCurrentSlide + offset + total) % total])
+    );
+    MediaUtils.warm(urls);
+}
+
+function openFotomatonFullscreen() {
+    const modal = document.getElementById('fotomatonFullscreenModal');
+    if (!modal) return;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    updateFotomatonFullscreen();
 }
 
 function closeFotomatonFullscreen() {
-    document.getElementById('fotomatonFullscreenModal').classList.remove('active');
+    const modal = document.getElementById('fotomatonFullscreenModal');
+    if (!modal) return;
+    modal.classList.remove('active');
     document.body.style.overflow = '';
-}
-
-function updateFotomatonFullscreen() {
-    document.getElementById('fotomatonFullscreenImage').src = fotomatonSlides[fotomatonCurrentSlide];
-    document.querySelector('.fotomaton-fullscreen-counter').textContent =
-        `${fotomatonCurrentSlide + 1} / ${fotomatonSlides.length}`;
 }
 
 function nextFotomatonSlideFullscreen() {
@@ -96,7 +139,7 @@ document.addEventListener('DOMContentLoaded', renderFotomatonPage);
 
 document.addEventListener('keydown', (event) => {
     const modal = document.getElementById('fotomatonFullscreenModal');
-    if (!modal.classList.contains('active')) return;
+    if (!modal || !modal.classList.contains('active')) return;
 
     if (event.key === 'ArrowLeft') prevFotomatonSlideFullscreen();
     if (event.key === 'ArrowRight') nextFotomatonSlideFullscreen();

@@ -1,97 +1,54 @@
-// Script para animar elementos cuando aparecen en viewport
+// Animaciones de aparición al hacer scroll.
+// Se usa IntersectionObserver (sin listeners de scroll) y se deja de observar
+// cada elemento en cuanto aparece, para no consumir recursos de más.
 document.addEventListener('DOMContentLoaded', () => {
-    // Detectar si es dispositivo móvil
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const revealElements = document.querySelectorAll(
+        '.scroll-reveal, .info-grid, .timeline, .hotels-grid'
+    );
+
+    const revealAll = () => revealElements.forEach((el) => el.classList.add('visible'));
+
+    if (!('IntersectionObserver' in window) || prefersReducedMotion) {
+        revealAll();
+        return;
+    }
+
     const isMobile = window.innerWidth <= 768;
 
-    // Crear observer para detectar cuando los elementos entran en viewport
-    const observerOptions = {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        });
+    }, {
         threshold: isMobile ? 0.2 : 0.1,
         rootMargin: isMobile ? '0px 0px -50px 0px' : '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // Opcional: dejar de observar después de animar
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observar todos los elementos con clase scroll-reveal
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-    revealElements.forEach(el => observer.observe(el));
-
-    // Animar secciones específicas
-    const sections = document.querySelectorAll('.info-grid, .timeline, .hotels-grid');
-    sections.forEach(section => {
-        observer.observe(section);
-        section.classList.add('scroll-reveal');
     });
 
-    // En móvil, mostrar secciones más rápido
+    revealElements.forEach((el) => {
+        if (!el.classList.contains('scroll-reveal')) el.classList.add('scroll-reveal');
+        observer.observe(el);
+    });
+
+    // En móvil las animaciones son algo más cortas para que la página se sienta ágil.
     if (isMobile) {
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
+        revealElements.forEach((el) => {
             el.style.animationDuration = '0.6s';
         });
     }
+
+    // Red de seguridad: si al cabo de un momento hay contenido ya visible en
+    // pantalla que el observer no ha revelado, lo mostramos igualmente.
+    setTimeout(() => {
+        revealElements.forEach((el) => {
+            if (el.classList.contains('visible')) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > -200) {
+                el.classList.add('visible');
+            }
+        });
+    }, 2500);
 });
-
-// Animar carrusel cuando cambia de foto
-function animateCarouselChange() {
-    const carouselImage = document.querySelector('.carousel-image');
-    if (carouselImage) {
-        carouselImage.classList.remove('fade-in');
-        // Trigger reflow para reiniciar la animación
-        void carouselImage.offsetWidth;
-        carouselImage.classList.add('fade-in');
-    }
-}
-
-// Interceptar las funciones de cambio de slide
-const originalNextSlide = window.nextSlide;
-const originalPrevSlide = window.prevSlide;
-
-window.nextSlide = function() {
-    originalNextSlide();
-    animateCarouselChange();
-};
-
-window.prevSlide = function() {
-    originalPrevSlide();
-    animateCarouselChange();
-};
-
-// Mejorar rendimiento en móvil deshabilitando algunas animaciones
-if (window.innerWidth <= 480) {
-    // Reducir animaciones en teléfonos pequeños
-    const style = document.createElement('style');
-    style.textContent = `
-        @media (max-width: 480px) {
-            .info-card, .hotel-card, .countdown-item, .timeline-item {
-                animation-duration: 0.5s !important;
-            }
-            
-            .hero-title {
-                animation-duration: 0.8s !important;
-            }
-            
-            /* Deshabilitar algunas animaciones hover en móvil */
-            @media (hover: none) {
-                .nav-menu a:hover::after {
-                    width: 0;
-                }
-                
-                .info-icon {
-                    transition: none;
-                }
-                
-                .info-card:hover {
-                    transform: none;
-                }
-            }
-        }
-    `;
-    document.head.appendChild(style);
-}
