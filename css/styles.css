@@ -1111,7 +1111,8 @@ iframe {
     margin-top: 4rem;
 }
 
-.once-gallery {
+.once-gallery,
+.fotografia-gallery {
     margin-top: 1.5rem;
 }
 
@@ -1188,6 +1189,7 @@ iframe {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 1rem;
     margin: 1.25rem auto 0;
 }
@@ -1205,6 +1207,50 @@ iframe {
     position: static;
     width: 42px;
     height: 42px;
+}
+
+.gallery-page-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.gallery-page-jump-label {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.gallery-page-input {
+    width: 4.6rem;
+    min-height: 42px;
+    padding: 0.35rem 0.4rem;
+    border: 1px solid rgba(139, 71, 68, 0.35);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--text-color);
+    font: inherit;
+    text-align: center;
+}
+
+.gallery-page-input:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.gallery-page-jump-btn {
+    min-height: 42px;
+    padding: 0.35rem 0.9rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: var(--white);
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.gallery-page-jump-btn:hover {
+    background: #713936;
 }
 
 .photo-pack-download {
@@ -1247,6 +1293,34 @@ iframe {
     text-align: center;
 }
 
+.drive-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgba(139, 71, 68, 0.35);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--text-color);
+    font: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.drive-link:hover,
+.drive-link:focus-visible {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.drive-icon {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 22px;
+}
+
 .fotomaton-selection-actions .carousel-fullscreen-btn,
 .fotomaton-selection-actions .fotomaton-download-btn {
     position: static;
@@ -1256,6 +1330,11 @@ iframe {
     .fotomaton-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 0.5rem;
+    }
+
+    .gallery-page-jump {
+        width: 100%;
+        justify-content: center;
     }
 
     .fotomaton-selection-label {

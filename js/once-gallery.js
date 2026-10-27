@@ -46,6 +46,12 @@ function renderOncePage() {
         pageCounter.textContent = `Página ${onceCurrentPage + 1} de ${totalPages}`;
     }
 
+    const pageInput = document.getElementById('oncePageInput');
+    if (pageInput) {
+        pageInput.max = String(totalPages);
+        pageInput.value = String(onceCurrentPage + 1);
+    }
+
     warmOncePage(onceCurrentPage + 1);
     warmOncePage(onceCurrentPage - 1);
 }
@@ -86,6 +92,22 @@ function prevOncePage() {
     const totalPages = Math.ceil(getOnceSlides().length / oncePhotosPerPage);
     if (!totalPages) return;
     onceCurrentPage = (onceCurrentPage - 1 + totalPages) % totalPages;
+    renderOncePage();
+}
+
+function jumpToOncePage(event) {
+    if (event) event.preventDefault();
+
+    const input = document.getElementById('oncePageInput');
+    const totalPages = Math.ceil(getOnceSlides().length / oncePhotosPerPage);
+    if (!input || !totalPages) return;
+
+    const requested = Number.parseInt(input.value, 10);
+    const page = Number.isFinite(requested)
+        ? Math.min(Math.max(requested, 1), totalPages)
+        : onceCurrentPage + 1;
+
+    onceCurrentPage = page - 1;
     renderOncePage();
 }
 

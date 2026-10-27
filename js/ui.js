@@ -178,6 +178,13 @@
         window.prevOnceSlideFullscreen || function () {}
     );
 
+    setupModal(
+        document.getElementById('fotografiaFullscreenModal'),
+        window.closeFotografiaFullscreen || function () {},
+        window.nextFotografiaSlideFullscreen || function () {},
+        window.prevFotografiaSlideFullscreen || function () {}
+    );
+
     /* ---------- Flechas del teclado en el carrusel ---------- */
     var gallery = document.getElementById('gallery');
     var galleryVisible = false;

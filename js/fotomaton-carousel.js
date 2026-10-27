@@ -49,6 +49,12 @@ function renderFotomatonPage() {
         pageCounter.textContent = `Página ${fotomatonCurrentPage + 1} de ${fotomatonTotalPages}`;
     }
 
+    const pageInput = document.getElementById('fotomatonPageInput');
+    if (pageInput) {
+        pageInput.max = String(fotomatonTotalPages);
+        pageInput.value = String(fotomatonCurrentPage + 1);
+    }
+
     warmFotomatonPage(fotomatonCurrentPage + 1);
     warmFotomatonPage(fotomatonCurrentPage - 1);
 }
@@ -78,6 +84,21 @@ function nextFotomatonPage() {
 
 function prevFotomatonPage() {
     fotomatonCurrentPage = (fotomatonCurrentPage - 1 + fotomatonTotalPages) % fotomatonTotalPages;
+    renderFotomatonPage();
+}
+
+function jumpToFotomatonPage(event) {
+    if (event) event.preventDefault();
+
+    const input = document.getElementById('fotomatonPageInput');
+    if (!input || !fotomatonTotalPages) return;
+
+    const requested = Number.parseInt(input.value, 10);
+    const page = Number.isFinite(requested)
+        ? Math.min(Math.max(requested, 1), fotomatonTotalPages)
+        : fotomatonCurrentPage + 1;
+
+    fotomatonCurrentPage = page - 1;
     renderFotomatonPage();
 }
 

@@ -2,8 +2,8 @@
 //
 // Claves de velocidad:
 //  - Se descargan los JPG optimizados (jpg/*.jpg, 1600 px): son las mismas fotos
-//    en JPG, pero pesan ~5 veces menos que los originales (37 MB vs 183 MB en
-//    Fotomatón, 96 MB vs 640 MB en ONCE).
+//    en JPG, pero pesan ~5 veces menos que los originales (Fotomatón, ONCE y
+//    Fotógrafa).
 //  - Varias descargas en paralelo (HTTP/2 multiplexa sin problema).
 //  - ZIP sin compresión (STORE): un JPG ya está comprimido, así que comprimir
 //    otra vez solo gastaría CPU.
@@ -12,6 +12,13 @@ const JSZIP_URL = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min
 const DOWNLOAD_CONCURRENCY = 8;
 const DOWNLOAD_ATTEMPTS = 2;
 const RETRY_DELAY = 500;
+
+// Cada galería indica dónde están sus fotos y su mensaje de estado.
+const PHOTO_PACKS = {
+    fotomaton: { statusId: 'fotomatonDownloadStatus', slides: 'fotomatonSlides' },
+    once: { statusId: 'onceDownloadStatus', slides: 'onceSlides' },
+    fotografia: { statusId: 'fotografiaDownloadStatus', slides: 'fotografiaSlides' }
+};
 
 let jszipRequest = null;
 
@@ -110,13 +117,9 @@ function hideProgress(button) {
 async function downloadPhotoPack(packName, button) {
     if (button && button.disabled) return;
 
-    const statusId = packName === 'fotomaton'
-        ? 'fotomatonDownloadStatus'
-        : 'onceDownloadStatus';
-    const status = document.getElementById(statusId);
-    const photos = packName === 'fotomaton'
-        ? window.fotomatonSlides
-        : window.onceSlides;
+    const pack = PHOTO_PACKS[packName];
+    const status = pack ? document.getElementById(pack.statusId) : null;
+    const photos = pack ? window[pack.slides] : null;
 
     if (!Array.isArray(photos) || photos.length === 0) {
         if (status) status.textContent = 'No hay fotos disponibles para descargar.';
