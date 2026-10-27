@@ -73,13 +73,16 @@ frente a 640 MB en ONCE, 340 MB frente a 3,2 GB en Fotógrafa y 9 MB frente a
   descarga. En la Fotógrafa descarga el JPG 1600 px, porque los originales no
   están publicados; en el resto de galerías descarga el original.
 
-En la galería de la Fotógrafa hay además un botón con el icono de Google Drive
-que abre en una pestaña nueva la carpeta original compartida en Drive
-(`https://drive.google.com/drive/u/1/folders/1EDFrfiK0ZZBR0JQRH-wjmnjoNcZKWbTj`).
+En las galerías de Fotógrafa, ONCE y Analógicas hay además un botón con el icono
+de Google Drive que abre en una pestaña nueva la carpeta compartida en Drive:
+
+- Fotógrafa: `https://drive.google.com/drive/u/1/folders/1EDFrfiK0ZZBR0JQRH-wjmnjoNcZKWbTj`
+- ONCE: `https://drive.google.com/drive/folders/1S4ECepDiwBwwHeUbjnKLsizZyC5BH4E5`
+- Analógicas: `https://drive.google.com/drive/folders/1_y9UIquKaiU5bJDyntmctahUvfQjEToX`
 
 ## Ir a una página concreta
 
-Cada galería paginada (Fotomatón, ONCE y Fotógrafa) tiene, junto a las flechas
+Cada galería paginada (Fotomatón, ONCE, Fotógrafa y Analógicas) tiene, junto a las flechas
 de navegación, un campo «Ir a» con su botón «Ir». Escribe el número de página y
 pulsa «Ir» (o Intro) para saltar directamente a esas fotos.
 
