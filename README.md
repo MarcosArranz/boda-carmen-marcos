@@ -1,7 +1,7 @@
 # Boda Karmen y Marcos
 
 Web de la boda: información del evento, itinerario, alojamiento, cuenta atrás y
-galerías de fotos (carrusel, fotomatón, ONCE y fotógrafa).
+galerías de fotos (fotógrafa, fotomatón, ONCE y analógicas).
 
 ## Estructura
 
@@ -13,6 +13,7 @@ images/                 Fotos del carrusel
 FOTOMATON/              Fotos del fotomatón
 ONCE/                   Fotos de la fiesta de ONCE
 FOTOGRAFA DEFINITIVO/   Fotos de la fotógrafa (solo derivados versionados)
+ANALOGICA/              Fotos analógicas
 tools/                  Utilidades (optimización de imágenes)
 ```
 
@@ -62,8 +63,8 @@ en la propia sección.
 El botón «Descargar todas las fotos» de cada galería descarga los derivados
 `jpg/` (JPG 1600 px, calidad 90) en un único ZIP: son las mismas fotos en JPG,
 pero pesan menos que los originales (52 MB frente a 183 MB en Fotomatón, 139 MB
-frente a 640 MB en ONCE y 340 MB frente a 3,2 GB en Fotógrafa), así que la
-descarga es bastante más rápida.
+frente a 640 MB en ONCE, 340 MB frente a 3,2 GB en Fotógrafa y 9 MB frente a
+14 MB en Analógicas), así que la descarga es bastante más rápida.
 
 - Se piden 8 fotos en paralelo y el ZIP se crea sin recomprimir (STORE).
 - JSZip solo se descarga al pulsar el botón.

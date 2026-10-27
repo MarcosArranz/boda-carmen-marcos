@@ -30,7 +30,7 @@ VARIANTS = {
     "jpg": (1600, 90, None, ".jpg", "JPEG"),
 }
 
-FOLDERS = ("FOTOMATON", "ONCE", "FOTOGRAFA DEFINITIVO", "images")
+FOLDERS = ("FOTOMATON", "ONCE", "FOTOGRAFA DEFINITIVO", "ANALOGICA", "images")
 
 EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 

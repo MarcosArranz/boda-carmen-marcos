@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boda Karmen y Marcos</title>
-    <meta name="version" content="1.3.2">
+    <meta name="version" content="1.4.0">
     <meta name="description" content="Boda de Karmen y Marcos: información, itinerario, alojamiento y galerías de fotos.">
     <meta name="theme-color" content="#8B4744">
     <script>document.documentElement.classList.add('js');</script>
@@ -76,72 +76,6 @@
         </div>
     </section>
 
-    <section id="fotos" class="section fotomaton-gallery">
-        <div class="container">
-            <h2 class="section-title">Fotomatón</h2>
-            <div class="fotomaton-grid" id="fotomatonGrid"></div>
-            <div class="fotomaton-gallery-controls">
-                <button class="carousel-button" onclick="prevFotomatonPage()" title="Página anterior">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <span class="fotomaton-page-counter">Página 1 de 35</span>
-                <button class="carousel-button" onclick="nextFotomatonPage()" title="Página siguiente">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-                <form class="gallery-page-jump" novalidate onsubmit="jumpToFotomatonPage(event)">
-                    <label class="gallery-page-jump-label" for="fotomatonPageInput">Ir a</label>
-                    <input id="fotomatonPageInput" class="gallery-page-input" type="number" min="1" max="34" inputmode="numeric" value="1" aria-label="Ir a la página del fotomatón">
-                    <button type="submit" class="gallery-page-jump-btn">Ir</button>
-                </form>
-            </div>
-            <div class="photo-pack-download">
-                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('fotomaton', this)"
-                        title="Descarga las 407 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
-                    <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
-                    Descargar todas las fotos
-                </button>
-                <span class="photo-pack-status" id="fotomatonDownloadStatus" role="status" aria-live="polite"></span>
-            </div>
-        </div>
-    </section>
-
-    <section class="section fotomaton-gallery once-gallery">
-        <div class="container">
-            <h2 class="section-title">ONCE</h2>
-            <div class="fotomaton-grid" id="onceGrid"></div>
-            <div class="fotomaton-gallery-controls">
-                <button class="carousel-button" onclick="prevOncePage()" title="Página anterior">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
-                <span class="fotomaton-page-counter once-page-counter">Página 1 de 1</span>
-                <button class="carousel-button" onclick="nextOncePage()" title="Página siguiente">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
-                <form class="gallery-page-jump" novalidate onsubmit="jumpToOncePage(event)">
-                    <label class="gallery-page-jump-label" for="oncePageInput">Ir a</label>
-                    <input id="oncePageInput" class="gallery-page-input" type="number" min="1" max="28" inputmode="numeric" value="1" aria-label="Ir a la página de ONCE">
-                    <button type="submit" class="gallery-page-jump-btn">Ir</button>
-                </form>
-            </div>
-            <div class="photo-pack-download">
-                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('once', this)"
-                        title="Descarga las 328 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
-                    <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
-                    Descargar todas las fotos
-                </button>
-                <span class="photo-pack-status" id="onceDownloadStatus" role="status" aria-live="polite"></span>
-            </div>
-        </div>
-    </section>
-
     <section id="fotografia" class="section fotomaton-gallery fotografia-gallery">
         <div class="container">
             <h2 class="section-title">Fotógrafa</h2>
@@ -184,6 +118,105 @@
                     </svg>
                     Google Drive
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="fotos" class="section fotomaton-gallery">
+        <div class="container">
+            <h2 class="section-title">Fotomatón</h2>
+            <div class="fotomaton-grid" id="fotomatonGrid"></div>
+            <div class="fotomaton-gallery-controls">
+                <button class="carousel-button" onclick="prevFotomatonPage()" title="Página anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <span class="fotomaton-page-counter">Página 1 de 34</span>
+                <button class="carousel-button" onclick="nextFotomatonPage()" title="Página siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <form class="gallery-page-jump" novalidate onsubmit="jumpToFotomatonPage(event)">
+                    <label class="gallery-page-jump-label" for="fotomatonPageInput">Ir a</label>
+                    <input id="fotomatonPageInput" class="gallery-page-input" type="number" min="1" max="34" inputmode="numeric" value="1" aria-label="Ir a la página del fotomatón">
+                    <button type="submit" class="gallery-page-jump-btn">Ir</button>
+                </form>
+            </div>
+            <div class="photo-pack-download">
+                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('fotomaton', this)"
+                        title="Descarga las 407 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
+                    <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
+                    Descargar todas las fotos
+                </button>
+                <span class="photo-pack-status" id="fotomatonDownloadStatus" role="status" aria-live="polite"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fotomaton-gallery once-gallery">
+        <div class="container">
+            <h2 class="section-title">ONCE</h2>
+            <div class="fotomaton-grid" id="onceGrid"></div>
+            <div class="fotomaton-gallery-controls">
+                <button class="carousel-button" onclick="prevOncePage()" title="Página anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <span class="fotomaton-page-counter once-page-counter">Página 1 de 28</span>
+                <button class="carousel-button" onclick="nextOncePage()" title="Página siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <form class="gallery-page-jump" novalidate onsubmit="jumpToOncePage(event)">
+                    <label class="gallery-page-jump-label" for="oncePageInput">Ir a</label>
+                    <input id="oncePageInput" class="gallery-page-input" type="number" min="1" max="28" inputmode="numeric" value="1" aria-label="Ir a la página de ONCE">
+                    <button type="submit" class="gallery-page-jump-btn">Ir</button>
+                </form>
+            </div>
+            <div class="photo-pack-download">
+                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('once', this)"
+                        title="Descarga las 328 fotos en JPG 1600 px. Para una foto suelta en calidad original, ábrela y usa su botón de descarga.">
+                    <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
+                    Descargar todas las fotos
+                </button>
+                <span class="photo-pack-status" id="onceDownloadStatus" role="status" aria-live="polite"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="analogicas" class="section fotomaton-gallery analogica-gallery">
+        <div class="container">
+            <h2 class="section-title">Analógicas</h2>
+            <div class="fotomaton-grid" id="analogicaGrid"></div>
+            <div class="fotomaton-gallery-controls">
+                <button class="carousel-button" onclick="prevAnalogicaPage()" title="Página anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <span class="fotomaton-page-counter analogica-page-counter">Página 1 de 2</span>
+                <button class="carousel-button" onclick="nextAnalogicaPage()" title="Página siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+                <form class="gallery-page-jump" novalidate onsubmit="jumpToAnalogicaPage(event)">
+                    <label class="gallery-page-jump-label" for="analogicaPageInput">Ir a</label>
+                    <input id="analogicaPageInput" class="gallery-page-input" type="number" min="1" max="2" inputmode="numeric" value="1" aria-label="Ir a la página de las fotos analógicas">
+                    <button type="submit" class="gallery-page-jump-btn">Ir</button>
+                </form>
+            </div>
+            <div class="photo-pack-download">
+                <button class="photo-pack-download-btn" type="button" onclick="downloadPhotoPack('analogica', this)"
+                        title="Descarga las 21 fotos en JPG 1600 px. Para una foto suelta, ábrela y usa su botón de descarga (JPG 1600 px).">
+                    <svg class="icon-inline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 11v6"></path><path d="m9.5 14.5 2.5 2.5 2.5-2.5"></path></svg>
+                    Descargar todas las fotos
+                </button>
+                <span class="photo-pack-status" id="analogicaDownloadStatus" role="status" aria-live="polite"></span>
             </div>
         </div>
     </section>
@@ -569,6 +602,31 @@
         <div class="slide-counter fotografia-fullscreen-counter">1 / 1064</div>
     </div>
 
+    <div id="analogicaFullscreenModal" class="fullscreen-modal fotomaton-fullscreen-modal">
+        <button class="fullscreen-close-btn" onclick="closeAnalogicaFullscreen()">✕</button>
+        <button class="fotomaton-fullscreen-download-btn" onclick="downloadAnalogicaPhoto()" title="Descargar foto">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 3v12"></path>
+                <path d="m7 10 5 5 5-5"></path>
+                <path d="M5 21h14"></path>
+            </svg>
+        </button>
+        <img id="analogicaFullscreenImage" class="fullscreen-media" src="" alt="Foto analógica a pantalla completa">
+        <div class="fullscreen-controls">
+            <button class="carousel-button" onclick="prevAnalogicaSlideFullscreen()" title="Foto anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <button class="carousel-button" onclick="nextAnalogicaSlideFullscreen()" title="Foto siguiente">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+        <div class="slide-counter analogica-fullscreen-counter">1 / 21</div>
+    </div>
+
     <!-- Número de Cuenta -->
     <section id="account" class="section account-section">
         <div class="container">
@@ -655,6 +713,8 @@
     <script src="js/once-gallery.js" defer></script>
     <script src="js/fotografia-gallery-data.js" defer></script>
     <script src="js/fotografia-gallery.js" defer></script>
+    <script src="js/analogica-gallery-data.js" defer></script>
+    <script src="js/analogica-gallery.js" defer></script>
     <script src="js/photo-pack-download.js" defer></script>
     <script src="js/scroll-animations.js" defer></script>
     <script src="js/ui.js" defer></script>

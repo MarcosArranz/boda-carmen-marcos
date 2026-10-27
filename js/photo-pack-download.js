@@ -17,7 +17,8 @@ const RETRY_DELAY = 500;
 const PHOTO_PACKS = {
     fotomaton: { statusId: 'fotomatonDownloadStatus', slides: 'fotomatonSlides' },
     once: { statusId: 'onceDownloadStatus', slides: 'onceSlides' },
-    fotografia: { statusId: 'fotografiaDownloadStatus', slides: 'fotografiaSlides' }
+    fotografia: { statusId: 'fotografiaDownloadStatus', slides: 'fotografiaSlides' },
+    analogica: { statusId: 'analogicaDownloadStatus', slides: 'analogicaSlides' }
 };
 
 let jszipRequest = null;

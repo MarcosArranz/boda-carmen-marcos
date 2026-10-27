@@ -6,3 +6,6 @@ FOTOGRAFA DEFINITIVO/transfer-*.zip
 # repositorio. La web usa thumbs/, large/ y jpg/; los originales están en
 # Google Drive (botón de la sección Fotógrafa).
 FOTOGRAFA DEFINITIVO/*.jpg
+
+# ZIP de la transferencia de las fotos analógicas: no se publica.
+ANALOGICA/transfer-*.zip
