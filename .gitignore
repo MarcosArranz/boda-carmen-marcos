@@ -1,3 +1,8 @@
 # ZIP original de la transferencia de la fotógrafa (3,2 GB).
 # GitHub rechaza archivos de más de 100 MB, así que no se sube.
 FOTOGRAFA DEFINITIVO/transfer-*.zip
+
+# Originales de la fotógrafa (3,15 GB): no se versionan para no engordar el
+# repositorio. La web usa thumbs/, large/ y jpg/; los originales están en
+# Google Drive (botón de la sección Fotógrafa).
+FOTOGRAFA DEFINITIVO/*.jpg

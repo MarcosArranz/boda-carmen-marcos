@@ -12,7 +12,7 @@ js/                     Scripts (galerías, carrusel, descargas, animaciones)
 images/                 Fotos del carrusel
 FOTOMATON/              Fotos del fotomatón
 ONCE/                   Fotos de la fiesta de ONCE
-FOTOGRAFA DEFINITIVO/   Fotos de la fotógrafa
+FOTOGRAFA DEFINITIVO/   Fotos de la fotógrafa (solo derivados versionados)
 tools/                  Utilidades (optimización de imágenes)
 ```
 
@@ -51,6 +51,11 @@ modifican y, si falta un derivado, la web carga automáticamente el original.
 > Importante: al publicar, sube también las carpetas `thumbs/`, `large/` y
 > `jpg/`. Sin ellas la página sigue funcionando, pero cargando los archivos
 > grandes.
+
+En la galería de la Fotógrafa los **originales no se versionan** (3,15 GB):
+`.gitignore` los excluye y el repositorio solo guarda los derivados (unos
+520 MB). Los originales se consultan desde la carpeta de Google Drive enlazada
+en la propia sección.
 
 ## Descargar todas las fotos
 
