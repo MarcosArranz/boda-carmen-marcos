@@ -82,6 +82,10 @@ en Drive:
 - ONCE: `https://drive.google.com/drive/folders/1S4ECepDiwBwwHeUbjnKLsizZyC5BH4E5`
 - Analógicas: `https://drive.google.com/drive/folders/1_y9UIquKaiU5bJDyntmctahUvfQjEToX`
 
+Encima de la galería de la Fotógrafa hay una banda suave con el enlace a la
+carpeta completa de Drive, que reúne todas las carpetas anteriores:
+`https://drive.google.com/drive/folders/1IpDIvWtU8tJBCXN55kS_9YNKsidmpKio`.
+
 ## Ir a una página concreta
 
 Cada galería paginada (Fotomatón, ONCE, Fotógrafa y Analógicas) tiene, junto a las flechas
