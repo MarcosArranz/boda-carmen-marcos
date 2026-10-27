@@ -114,7 +114,9 @@ function jumpToFotografiaPage(event) {
 function downloadFotografiaPhoto() {
     const fotografiaSlides = getFotografiaSlides();
     if (!fotografiaSlides.length) return;
-    const imageUrl = fotografiaSlides[fotografiaCurrentSlide];
+    const original = fotografiaSlides[fotografiaCurrentSlide];
+    // Los originales no se publican: se descarga el JPG 1600 px.
+    const imageUrl = window.MediaUtils ? window.MediaUtils.jpgUrl(original) : original;
     const downloadLink = document.createElement('a');
     downloadLink.href = imageUrl;
     downloadLink.download = imageUrl.split('/').pop();

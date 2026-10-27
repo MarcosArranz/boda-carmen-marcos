@@ -68,8 +68,9 @@ descarga es bastante más rápida.
 - Se piden 8 fotos en paralelo y el ZIP se crea sin recomprimir (STORE).
 - JSZip solo se descarga al pulsar el botón.
 - Si un derivado faltara, esa foto se descarga desde el original.
-- Para una foto suelta en calidad original, se abre a pantalla completa y se
-  usa su botón de descarga.
+- Para una foto suelta se abre a pantalla completa y se usa su botón de
+  descarga. En la Fotógrafa descarga el JPG 1600 px, porque los originales no
+  están publicados; en el resto de galerías descarga el original.
 
 En la galería de la Fotógrafa hay además un botón con el icono de Google Drive
 que abre en una pestaña nueva la carpeta original compartida en Drive
